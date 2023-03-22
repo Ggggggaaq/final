@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.itwill.mapper.FilterMapper">
+
+
+	
+
+			<!-- 사용자가 선택한 조건에 따라 동적으로 SELECT 문을 생성하는 쿼리 -->
+		<select id="selectSpaceCount" parameterType="map" resultType="int">
+		  SELECT count(*) FROM space
+		  <where>
+		   <if test="sPerson != null and sPerson != ''">
+			  AND #{sPerson} &lt;= s_person
+			</if>
+		       <if test="sCate != null and sCate != ''">
+		      AND s_cate = #{sCate}
+		      		    </if>
+		       <if test="sMap != null and sMap != ''">
+		          <!-- sMap의 값에 '%' 와일드카드 문자를 앞뒤로 추가 -->
+				    <bind name="sMap" value="'%' + sMap + '%'"/>
+				    <!-- LIKE 연산자를 사용해서 부분 일치를 검사 -->
+				    AND s_map LIKE #{sMap}
+		   	   </if>
+		       <if test="sName != null and sName != ''">
+		          <!-- sName의 값에 '%' 와일드카드 문자를 앞뒤로 추가 -->
+				    <bind name="sName" value="'%' + sName + '%'"/>
+				    <!-- LIKE 연산자를 사용해서 부분 일치를 검사 -->
+				    AND s_name LIKE #{sName}
+		   	   </if>
+		  
+		</where>
+	</select>
+	
+		<!-- 사용자가 선택한 조건에 따라 동적으로 SELECT 문을 생성하는 쿼리 -->
+		<select id="selectSpaceSno" parameterType="map" resultType="Space">
+		  SELECT s_no FROM space
+		  <where>
+		   <if test="sPerson != null and sPerson != ''">
+			  AND #{sPerson} &lt;= s_person
+			</if>
+		       <if test="sCate != null and sCate != ''">
+		      AND s_cate = #{sCate}
+		      		    </if>
+		       <if test="sMap != null and sMap != ''">
+		          <!-- sMap의 값에 '%' 와일드카드 문자를 앞뒤로 추가 -->
+				    <bind name="sMap" value="'%' + sMap + '%'"/>
+				    <!-- LIKE 연산자를 사용해서 부분 일치를 검사 -->
+				    AND s_map LIKE #{sMap}
+		   	   </if>
+		       <if test="sName != null and sName != ''">
+		          <!-- sName의 값에 '%' 와일드카드 문자를 앞뒤로 추가 -->
+				    <bind name="sName" value="'%' + sName + '%'"/>
+				    <!-- LIKE 연산자를 사용해서 부분 일치를 검사 -->
+				    AND s_name LIKE #{sName}
+		   	   </if>
+		</where>
+	</select>
+	
+	
+		
+		<!-- 최신글순으로 정렬하여 원하는 글범위의 space list 검색 -->		
+		<select id="selectSpaceList" resultType="Space">
+			select * from (select rownum rn, spaceboard.* from (select * from Space where s_no IN (
+			<foreach collection="sNoList" item="sNo" separator=",">
+				#{sNo}
+			</foreach>
+			)  <!-- 정렬 필터 -->
+				  <if test="sort != null and sort != ''">
+					  <choose>
+					    <when test="sort == 0">
+					      ORDER BY s_price ASC
+					    </when>
+					    <when test="sort == 1">
+					      ORDER BY s_price DESC
+					    </when>
+					    <when test="sort == 2">
+					      ORDER BY s_heart DESC
+					    </when>
+					    <otherwise>
+					      <!-- 정렬 방식을 지정하지 않거나 기본값으로 설정 -->
+					    </otherwise>
+					  </choose>
+				  </if>
+			) spaceboard) where rn between #{startRow} and #{endRow}
+		</select>
+	
+		
+</mapper>
