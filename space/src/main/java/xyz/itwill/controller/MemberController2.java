@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
-import xyz.itwill.dao.FilterDAO;
+import xyz.itwill.dao.MemberHostBoardDAO;
 import xyz.itwill.dto.Faq;
 import xyz.itwill.dto.Host;
 import xyz.itwill.dto.Member;
@@ -32,7 +32,6 @@ import xyz.itwill.exception.BoardNotFoundException;
 import xyz.itwill.exception.MemberNotFoundException;
 import xyz.itwill.exception.SpaceNotFoundException;
 import xyz.itwill.service.MemberService;
-import xyz.itwill.service.QuestionService;
 import xyz.itwill.service.MemberHostBoardService;
 import xyz.itwill.util.Pager;
 
@@ -42,10 +41,9 @@ import xyz.itwill.util.Pager;
 public class MemberController2 {
 	
 	private final MemberHostBoardService memberHostBoardService;
-	private final QuestionService questionService;
-	private final FilterDAO filterDAO;	
+	private final MemberHostBoardDAO memberHostBoardDao;
 	
-	
+		
 		//member write,update,delete 처리.
 			@RequestMapping(value="/member_review_write", method = RequestMethod.GET)
 			public String find2(HttpSession session,Model model)  {
@@ -60,17 +58,7 @@ public class MemberController2 {
 				memberHostBoardService.addReview(review);
 				return "redirect:/member_review";
 			}
-			
-			
-			
-			//선택된 게시글을 전달받아 해당 게시글을 삭제 처리
-			@RequestMapping(value ="member_qna_delete/{qNo}" , method = RequestMethod.DELETE)
-			@ResponseBody
-			public String qnaremove(@PathVariable int qNo) throws BoardNotFoundException {
-				questionService.removeQuestion(qNo);
-				return "success";
-			}
-			
+
 			
 			//member write,update,delete 처리.
 			@RequestMapping(value="/member_qna_write", method = RequestMethod.GET)
@@ -83,7 +71,7 @@ public class MemberController2 {
 			//입력값 작성 후 게시글 등록 클릭했을경우 삽입 후 notice페이지로 이동
 			@RequestMapping(value = "member_qna_write", method = RequestMethod.POST)
 			public String qnawrite(@ModelAttribute Question question) {
-				questionService.addQuestion(question);
+				memberHostBoardService.addQuestion(question);
 				return "redirect:/member_qna";
 			}
 	
@@ -106,7 +94,7 @@ public class MemberController2 {
 					@ResponseBody
 					public Map<String, Object> ReviewList(@RequestParam(defaultValue = "1") int pageNum,HttpSession session) {
 						Member loginMember=(Member)session.getAttribute("loginMember");
-						int totalQuestion=memberHostBoardService.getReviewCount(loginMember.getMId());
+						int totalQuestion=memberHostBoardDao.selectReviewCount(loginMember.getMId());
 						int pageSize=6;
 						int blockSize=5;
 						
@@ -116,7 +104,7 @@ public class MemberController2 {
 						pageMap.put("startRow", pager.getStartRow());
 						pageMap.put("endRow", pager.getEndRow());
 						
-						List<SelectMember> reviewList=memberHostBoardService.getReviewList(pageMap);
+						List<SelectMember> reviewList=memberHostBoardDao.selectReviewList(pageMap);
 						
 						Map<String, Object> resultMap=new HashMap<String, Object>();
 						resultMap.put("reviewList", reviewList);
@@ -132,7 +120,7 @@ public class MemberController2 {
 					@ResponseBody
 					public Map<String, Object> ReserveList(@RequestParam(defaultValue = "1") int pageNum,HttpSession session) {
 						Member loginMember=(Member)session.getAttribute("loginMember");
-						int totalQuestion=memberHostBoardService.getReserveCount(loginMember.getMId());
+						int totalQuestion=memberHostBoardDao.selectReserveCount(loginMember.getMId());
 						int pageSize=6;
 						int blockSize=5;
 						
@@ -142,7 +130,7 @@ public class MemberController2 {
 						pageMap.put("startRow", pager.getStartRow());
 						pageMap.put("endRow", pager.getEndRow());
 						
-						List<SelectMember> reserveList=memberHostBoardService.getReserveList(pageMap);
+						List<SelectMember> reserveList=memberHostBoardDao.SelectReserveList(pageMap);
 						
 						Map<String, Object> resultMap=new HashMap<String, Object>();
 						resultMap.put("reserveList", reserveList);
@@ -157,7 +145,7 @@ public class MemberController2 {
 						
 						
 						//필터를 통해 전달받은 모든 parameter를 params Map객체에 저장.
-						int totalQuestion=filterDAO.selectSpaceCount(params);
+						int totalQuestion=memberHostBoardDao.selectSpaceCount(params);
 						int pageSize=6;
 						int blockSize=5;
 						
@@ -167,7 +155,7 @@ public class MemberController2 {
 						
 						if(totalQuestion != 0) {
 							//sNo를 받아와서 출력하기 위한 객체 생성.
-							List<Space> sNo=filterDAO.selectSpaceSno(params);
+							List<Space> sNo=memberHostBoardDao.selectSpaceSno(params);
 							List<Integer> sNoList = new ArrayList<>();
 							
 							for (Space space : sNo) {
@@ -180,7 +168,7 @@ public class MemberController2 {
 							pageMap.put("sNoList", sNoList);
 							pageMap.put("sort", (String)params.get("sort"));
 							
-							List<Space> spaceList=filterDAO.selectSpaceList(pageMap);
+							List<Space> spaceList=memberHostBoardDao.selectSpaceList(pageMap);
 							
 							Map<String, Object> resultMap=new HashMap<String, Object>();
 							resultMap.put("spaceList", spaceList);
@@ -215,7 +203,7 @@ public class MemberController2 {
 						pageMap.put("startRow", pager.getStartRow());
 						pageMap.put("endRow", pager.getEndRow());
 						
-						List<SelectMember> questionList=memberHostBoardService.getQuestionList(pageMap);
+						List<SelectMember> questionList=memberHostBoardDao.SelectQuestionList(pageMap);
 						
 						Map<String, Object> resultMap=new HashMap<String, Object>();
 						resultMap.put("questionList", questionList);
@@ -231,7 +219,7 @@ public class MemberController2 {
 					@ResponseBody
 					public Map<String, Object> ReviewList2(@RequestParam(defaultValue = "1") int pageNum) {
 					
-						int totalQuestion=memberHostBoardService.getHostReviewCount();
+						int totalQuestion=memberHostBoardDao.selectHostReviewCount();
 						int pageSize=6;
 						int blockSize=5;
 						
@@ -241,7 +229,7 @@ public class MemberController2 {
 						pageMap.put("startRow", pager.getStartRow());
 						pageMap.put("endRow", pager.getEndRow());
 						
-						List<SelectMember> reviewList=memberHostBoardService.getHostReviewList(pageMap);
+						List<SelectMember> reviewList=memberHostBoardDao.selectHostReviewList(pageMap);
 						
 						Map<String, Object> resultMap=new HashMap<String, Object>();
 						resultMap.put("reviewList", reviewList);
@@ -256,7 +244,7 @@ public class MemberController2 {
 					@ResponseBody
 					public Map<String, Object> ReserveList2(@RequestParam(defaultValue = "1") int pageNum) {
 						
-						int totalQuestion=memberHostBoardService.getHostReserveCount();
+						int totalQuestion=memberHostBoardDao.selectHostReserveCount();
 						int pageSize=6;
 						int blockSize=5;
 						
@@ -266,7 +254,7 @@ public class MemberController2 {
 						pageMap.put("startRow", pager.getStartRow());
 						pageMap.put("endRow", pager.getEndRow());
 						
-						List<SelectMember> reserveList=memberHostBoardService.getHostReserveList(pageMap);
+						List<SelectMember> reserveList=memberHostBoardDao.selectHostReserveList(pageMap);
 						
 						Map<String, Object> resultMap=new HashMap<String, Object>();
 						resultMap.put("reserveList", reserveList);
@@ -281,7 +269,7 @@ public class MemberController2 {
 					@ResponseBody
 					public Map<String, Object> QuestionList2(@RequestParam(defaultValue = "1") int pageNum) {
 						
-						int totalQuestion=memberHostBoardService.getHostReviewCount();
+						int totalQuestion=memberHostBoardDao.selectHostReviewCount();
 						int pageSize=6;
 						int blockSize=5;
 						
@@ -291,7 +279,7 @@ public class MemberController2 {
 						pageMap.put("startRow", pager.getStartRow());
 						pageMap.put("endRow", pager.getEndRow());
 						
-						List<SelectMember> questionList=memberHostBoardService.getHostQuestionList(pageMap);
+						List<SelectMember> questionList=memberHostBoardDao.selectHostQuestionList(pageMap);
 						
 						Map<String, Object> resultMap=new HashMap<String, Object>();
 						resultMap.put("questionList", questionList);

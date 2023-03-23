@@ -7,8 +7,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
+import xyz.itwill.dto.Question;
 import xyz.itwill.dto.Review;
 import xyz.itwill.dto.SelectMember;
+import xyz.itwill.dto.Space;
 import xyz.itwill.mapper.NoticeMapper;
 import xyz.itwill.mapper.MemberHostBoardMapper;
 
@@ -141,6 +143,33 @@ public class MemberHostBoardDAOImpl implements MemberHostBoardDAO {
 		
 		return sqlSession.getMapper(MemberHostBoardMapper.class).selectHostReviewList(map);
 	}
+	@Override
+	public int insertQuestion(Question question) {
+		return sqlSession.getMapper(MemberHostBoardMapper.class).insertQuestion(question);
+	}
 
-	
+	@Override
+	public int updateQuestion(Question restBoard) {
+		return sqlSession.getMapper(MemberHostBoardMapper.class).updateQuestion(restBoard);
+	}
+
+
+	@Override
+	public int selectSpaceCount(Map<String, Object> params) {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(MemberHostBoardMapper.class).selectSpaceCount(params);
+	}
+
+	@Override
+	public List<Space> selectSpaceList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(MemberHostBoardMapper.class).selectSpaceList(map);
+	}
+
+	@Override
+	public List<Space> selectSpaceSno(Map<String, Object> params) {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(MemberHostBoardMapper.class).selectSpaceSno(params);
+	}
+
 }

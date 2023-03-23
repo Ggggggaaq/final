@@ -4,45 +4,47 @@ package xyz.itwill.mapper;
 import java.util.List;
 import java.util.Map;
 
+import xyz.itwill.dto.Question;
 import xyz.itwill.dto.Review;
 import xyz.itwill.dto.SelectMember;
+import xyz.itwill.dto.Space;
 
 public interface MemberHostBoardMapper {
 	
-	//Review
+	//Member Review
 	int insertReview(Review review);
 	int updateReview(Review review);
 	int deleteReview(int rNo);
 	int selectReviewCount(String rMid);
 	Review selectReview(int rNo);
-	//List<Review> selectReviewList(Map<String, Object> map);
 	List<SelectMember> selectReviewList(Map<String, Object> map);
 	
-	
-	
-	
-	//Reserve
+	//Member Reserve
 	List<SelectMember> SelectReserveList(Map<String, Object> map);
 	int deleteReserve(int pNo);
 	int selectReserveCount(String pMid);
-
 	
-	
-	//Question
+	//Member Question
+	int insertQuestion(Question question);
+	int updateQuestion(Question question);
 	List<SelectMember> SelectQuestionList(Map<String, Object> map);
 	int deleteQuestion(int qNo);
 	int selectQuestionCount(String qMid);
-	
 
-	// count 갯수 확인.
-	int selectHostReviewCount();
-	int selectHostQuestionCount();
+	//Host Reserve
 	int selectHostReserveCount();
-	
-	
-	// List 출력 처리.
-	List<SelectMember> selectHostQuestionList(Map<String, Object> map);
 	List<SelectMember> selectHostReserveList(Map<String, Object> map);
+
+	//Host Review
+	int selectHostReviewCount();
 	List<SelectMember> selectHostReviewList(Map<String, Object> map);
 	
+	//Host Question
+	int selectHostQuestionCount();
+	List<SelectMember> selectHostQuestionList(Map<String, Object> map);
+	
+	// Filter 
+	List<Space> selectSpaceSno(Map<String, Object> params);
+	int selectSpaceCount(Map<String, Object> params);
+	List<Space> selectSpaceList(Map<String, Object> map);
 }

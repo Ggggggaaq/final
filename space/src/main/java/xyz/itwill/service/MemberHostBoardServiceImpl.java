@@ -5,14 +5,16 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import xyz.itwill.dao.FilterDAO;
 import xyz.itwill.dao.MemberHostBoardDAO;
 import xyz.itwill.dao.SpaceDAO;
+import xyz.itwill.dto.Question;
 import xyz.itwill.dto.Review;
 import xyz.itwill.dto.SelectMember;
 import xyz.itwill.dto.Space;
 import xyz.itwill.exception.BoardNotFoundException;
+import xyz.itwill.exception.MemberNotFoundException;
 
 @Service
 public class MemberHostBoardServiceImpl implements MemberHostBoardService {
@@ -20,13 +22,15 @@ public class MemberHostBoardServiceImpl implements MemberHostBoardService {
     @Autowired
     private MemberHostBoardDAO reviewDAO;
     
-  
-
+    
+    
 	@Override
 	public void addReview(Review review) {
+	
 		reviewDAO.insertReview(review);
 		
 	}
+
 
 	@Override
 	public void modifyReview(Review review) throws BoardNotFoundException {
@@ -54,78 +58,34 @@ public class MemberHostBoardServiceImpl implements MemberHostBoardService {
 			}
 			return reviewDAO.selectReview(rNo);
 	}
-	/*
-	@Override
-	public List<Review> getReviewList(Map<String, Object> map) {
-		return reviewDAO.selectReviewList(map);
-	}
-	*/
-	@Override
-	public List<SelectMember> getReviewList(Map<String, Object> map) {
-		return reviewDAO.selectReviewList(map);
-	}
 
-	@Override
-	public List<SelectMember> getReserveList(Map<String, Object> map) {
-		
-		return reviewDAO.SelectReserveList(map);
-	}
 
-	@Override
-	public int getReserveCount(String pMid) {
-		
-		return reviewDAO.selectReserveCount(pMid);
-	}
-
-	@Override
-	public List<SelectMember> getQuestionList(Map<String, Object> map) {
-		
-		return reviewDAO.SelectQuestionList(map);
-	}
 
 	@Override
 	public int getQuestionCount(String qMid) {
-	
+		
 		return reviewDAO.selectQuestionCount(qMid);
 	}
 
-	
-	
 	@Override
-	public List<SelectMember> getHostReserveList(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return reviewDAO.selectHostReserveList(map);
+	public void addQuestion(Question question) {
+		reviewDAO.insertQuestion(question);
+		
 	}
 
 	@Override
-	public int getHostReserveCount() {
-		// TODO Auto-generated method stub
-		return reviewDAO.selectHostReserveCount();
+	public void modifyQuestion(Question question) {
+		
+		/*
+		if(restBoardDAO.selectRestBoard(restBoard.getNum())==null) {
+			throw new Exception("해당 게시글을 찾을 수 없습니다.");
+		}
+		*/
+		reviewDAO.updateQuestion(question);
 	}
 
-	@Override
-	public List<SelectMember> getHostQuestionList(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return reviewDAO.selectHostQuestionList(map);
-	}
 
-	@Override
-	public int getHostQuestionCount() {
-		// TODO Auto-generated method stub
-		return reviewDAO.selectHostQuestionCount();
-	}
-	
-	@Override
-	public List<SelectMember> getHostReviewList(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return reviewDAO.selectHostReviewList(map);
-	}
 
-	@Override
-	public int getHostReviewCount() {
-		// TODO Auto-generated method stub
-		return reviewDAO.selectHostReviewCount();
-	}
 	
 	
   

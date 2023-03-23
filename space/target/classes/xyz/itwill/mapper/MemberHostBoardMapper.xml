@@ -21,16 +21,9 @@
 	
 	
 	<!-- Review 테이블 -->
-		<!-- 최신글순으로 정렬하여 원하는 글범위의 notice list 검색 -->		
-	<select id="selectReviewList" resultMap="SelectMemberResultMap">
-		select * from (select rownum rn, reviewboard.* from (select * from Review order by r_no desc) reviewboard) where rn between #{startRow} and #{endRow}
-	</select>
 	
 	
-	
-	
-	
-	<!-- review 게시글 삽입 -->
+	<!-- Review 게시글 삽입 -->
 		<insert id="insertReview">
 			<selectKey resultType="int" keyProperty="rNo" order="BEFORE">
 				select review_seq.nextval from dual
@@ -39,7 +32,7 @@
 	</insert>
 	
 	
-	<!-- notice 게시글 변경 (변경값이 있을 경우에만 변경) -->
+	<!-- Review 게시글 변경 (변경값이 있을 경우에만 변경) -->
 	<update id="updateReview">
 		update notice
 		<set>
@@ -65,76 +58,109 @@
 		where r_No=#{rNo}
 	</update>
 	
-	<!-- 글번호를 전달받아 notice 게시글 삭제 -->	
+	<!-- 글번호를 전달받아 Review 게시글 삭제 -->	
 	<delete id="deleteReview">
 		delete from review where r_no=#{rNo}
 	</delete>
 	
 	
-	<!-- notice 게시글 총개수 -->	
+	<!-- Review 게시글 총개수 -->	
 	<select id="selectReviewCount" resultType="int">
 		select count(*) from review where r_mid=#{rMid}
 	</select>
 	
-	
-	
-	
-	<!-- 글번호를 전달받아 notice 게시글 검색 -->		
+	<!-- 글번호를 전달받아 Review 게시글 검색 -->		
 	<select id="selectReview" resultType="Review">
 		select * from review where r_no=#{rNo}
 	</select>
 	
 	
-	<!-- 최신글순으로 정렬하여 원하는 글범위의 notice list 검색 -->		
-	<!--  
-	
-	<select id="selectReviewList" resultType="Review">
+	<!-- 최신글순으로 정렬하여 원하는 글범위의 Review list 검색 -->		
+	<select id="selectReviewList" resultMap="SelectMemberResultMap">
 		select * from (select rownum rn, reviewboard.* from (select * from Review order by r_no desc) reviewboard) where rn between #{startRow} and #{endRow}
-	</select>-->
-	
-	
-	
-	
-	<!-- Review 테이블 -->
-		<!-- 최신글순으로 정렬하여 원하는 글범위의 notice list 검색 -->		
-	<select id="SelectReserveList" resultMap="SelectMemberResultMap">
-		select * from (select rownum rn, payboard.* from (select * from Pay order by p_no desc) payboard) where rn between #{startRow} and #{endRow}
 	</select>
 	
 	
-	<!-- 글번호를 전달받아 notice 게시글 삭제 -->	
+	
+	<!-- Reserve 테이블 -->
+	
+
+	
+	<!-- 글번호를 전달받아 Reserve 게시글 삭제 -->	
 	<delete id="deleteReserve">
 		delete from pay where p_no=#{pNo}
 	</delete>
 	
 	
-	<!-- notice 게시글 총개수 -->	
+	<!-- Reserve 게시글 총개수 -->	
 	<select id="selectReserveCount" resultType="int">
 		select count(*) from pay where p_mid=#{pMid}
 	</select>
 	
-	<!--QNA 테이블 -->
-	
-	
-	<!-- 최신글순으로 정렬하여 원하는 글범위의 notice list 검색 -->		
-	<select id="SelectQuestionList" resultMap="SelectMemberResultMap">
-		select * from (select rownum rn, questionboard.* from (select * from Question order by q_no desc) questionboard) where rn between #{startRow} and #{endRow}
+	<!-- 최신글순으로 정렬하여 원하는 글범위의 Reserve list 검색 -->		
+	<select id="SelectReserveList" resultMap="SelectMemberResultMap">
+		select * from (select rownum rn, payboard.* from (select * from Pay order by p_no desc) payboard) where rn between #{startRow} and #{endRow}
 	</select>
 	
 	
-	<!-- 글번호를 전달받아 notice 게시글 삭제 -->	
+	
+	
+	<!--Question 테이블 -->
+		
+		
+	<!-- Question 게시글 삽입 -->
+		<insert id="insertQuestion">
+			<selectKey resultType="int" keyProperty="qNo" order="BEFORE">
+				select question_seq.nextval from dual
+			</selectKey>
+			insert into question values(#{qNo}, #{qTitle}, #{qContent}, #{qImg},1 ,sysdate,1,#{qMid},#{qHid}, #{qSno}, #{qCount})	
+	</insert>
+	<!-- Question 게시글 변경 (변경값이 있을 경우에만 변경) -->
+	<update id="updateQuestion">
+		update question
+		<set>
+			<if test="qTitle!=null and qTitle!=''">
+				q_title=#{qTitle},
+			</if>
+			<if test="qContent!=null and qContent!=''">
+				q_content=#{qContent},
+			</if>
+			<if test="qStatus==0 or qStatus==1">
+				q_status=#{qStatus},
+			</if>
+			
+			<if test="qMstatus==0 or qMstatus==1">
+				q_mstatus=#{qMstatus}
+			</if>
+		</set>
+		where q_No=#{qNo}
+	</update>
+	
+	
+	<!-- 글번호를 전달받아 Question 게시글 삭제 -->	
 	<delete id="deleteQuestion">
 		delete from Question where q_no=#{qNo}
 	</delete>
 	
 	
-	<!-- notice 게시글 총개수 -->	
+	<!-- Question 게시글 총개수 -->	
 	<select id="selectQuestionCount" resultType="int">
 		select count(*) from Question where q_mid=#{qMid}
 	</select>
 	
+	<!-- 최신글순으로 정렬하여 원하는 글범위의 Question list 검색 -->		
+	<select id="SelectQuestionList" resultMap="SelectMemberResultMap">
+		select * from (select rownum rn, questionboard.* from (select * from Question order by q_no desc) questionboard) where rn between #{startRow} and #{endRow}
+	</select>
 	
-	<!-- Notice 게시글 총개수 -->	
+	
+	
+	
+	<!-- Host  -->
+	
+	<!--Host  Review -->
+	
+	<!-- Review 게시글 총개수 -->	
 	<select id="selectHostReviewCount" resultType="int">
 		select count(*) from review
 	</select>
@@ -144,6 +170,7 @@
 		select * from (select rownum rn, reviewboard.* from (select * from Review order by r_no desc) reviewboard) where rn between #{startRow} and #{endRow}
 	</select>
 	
+	<!--Host Reserve -->
 	
 	<!-- Reserve 게시글 총개수 -->	
 	<select id="selectHostReserveCount" resultType="int">
@@ -156,6 +183,7 @@
 		select * from (select rownum rn, payboard.* from (select * from Pay order by p_no desc) payboard) where rn between #{startRow} and #{endRow}
 	</select>
 	
+	<!-- Host Question-->
 	
 	<!-- Question 게시글 총개수 -->	
 	<select id="selectHostQuestionCount" resultType="int">
@@ -171,17 +199,86 @@
 	
 	
 	
-	
-	<!--QNA 테이블 -->
-	<!--
-	<select id="selectHostReserveCount" resultType="int">
-		select count(*) from pay where p_hid=#{pHid}
+
+	<!-- Filter  -->
+			<!-- 사용자가 선택한 조건에 따라 동적으로 SELECT 문을 사용해 count 값 반환하는 쿼리 -->
+		<select id="selectSpaceCount" parameterType="map" resultType="int">
+		  SELECT count(*) FROM space
+		  <where>
+		   <if test="sPerson != null and sPerson != ''">
+			  AND #{sPerson} &lt;= s_person
+			</if>
+		       <if test="sCate != null and sCate != ''">
+		      AND s_cate = #{sCate}
+		      		    </if>
+		       <if test="sMap != null and sMap != ''">
+		          <!-- sMap의 값에 '%' 와일드카드 문자를 앞뒤로 추가 -->
+				    <bind name="sMap" value="'%' + sMap + '%'"/>
+				    <!-- LIKE 연산자를 사용해서 부분 일치를 검사 -->
+				    AND s_map LIKE #{sMap}
+		   	   </if>
+		       <if test="sName != null and sName != ''">
+		          <!-- sName의 값에 '%' 와일드카드 문자를 앞뒤로 추가 -->
+				    <bind name="sName" value="'%' + sName + '%'"/>
+				    <!-- LIKE 연산자를 사용해서 부분 일치를 검사 -->
+				    AND s_name LIKE #{sName}
+		   	   </if>
+		  
+		</where>
 	</select>
-	-->
-	<!-- notice 게시글 총개수 -->	<!--
-	<select id="selectHostQuestionCount" resultType="int">
-		select count(*) from question where _hid=#{qHid}
-	</select>  -->
+	
+		<!-- 사용자가 선택한 조건에 따라 동적으로 SELECT 문을 사용해 s_no 값 반환하는 쿼리 -->
+		<select id="selectSpaceSno" parameterType="map" resultType="Space">
+		  SELECT s_no FROM space
+		  <where>
+		   <if test="sPerson != null and sPerson != ''">
+			  AND #{sPerson} &lt;= s_person
+			</if>
+		       <if test="sCate != null and sCate != ''">
+		      AND s_cate = #{sCate}
+		      		    </if>
+		       <if test="sMap != null and sMap != ''">
+		          <!-- sMap의 값에 '%' 와일드카드 문자를 앞뒤로 추가 -->
+				    <bind name="sMap" value="'%' + sMap + '%'"/>
+				    <!-- LIKE 연산자를 사용해서 부분 일치를 검사 -->
+				    AND s_map LIKE #{sMap}
+		   	   </if>
+		       <if test="sName != null and sName != ''">
+		          <!-- sName의 값에 '%' 와일드카드 문자를 앞뒤로 추가 -->
+				    <bind name="sName" value="'%' + sName + '%'"/>
+				    <!-- LIKE 연산자를 사용해서 부분 일치를 검사 -->
+				    AND s_name LIKE #{sName}
+		   	   </if>
+		</where>
+	</select>
 	
 	
+		
+		<!-- 최신글순으로 정렬하여 원하는 글범위의 space list 정렬하여 검색 -->		
+		<select id="selectSpaceList" resultType="Space">
+			select * from (select rownum rn, spaceboard.* from (select * from Space where s_no IN (
+			<foreach collection="sNoList" item="sNo" separator=",">
+				#{sNo}
+			</foreach>
+			)  <!-- 정렬 필터 -->
+				  <if test="sort != null and sort != ''">
+					  <choose>
+					    <when test="sort == 0">
+					      ORDER BY s_price ASC
+					    </when>
+					    <when test="sort == 1">
+					      ORDER BY s_price DESC
+					    </when>
+					    <when test="sort == 2">
+					      ORDER BY s_heart DESC
+					    </when>
+					    <otherwise>
+					      <!-- 정렬 방식을 지정하지 않거나 기본값으로 설정 -->
+					    </otherwise>
+					  </choose>
+				  </if>
+			) spaceboard) where rn between #{startRow} and #{endRow}
+		</select>
+	
+		
 </mapper>
