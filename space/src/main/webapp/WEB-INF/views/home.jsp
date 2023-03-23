@@ -57,14 +57,16 @@
 	
 	
 	
-	
-	ㄴㅇㅁㅇㄴㅁ
-	
-	
-	
 }
 
 #footer{
+
+
+
+
+
+
+
 	height: 150px;
 	margin: 10px;
 	padding: 10px;
