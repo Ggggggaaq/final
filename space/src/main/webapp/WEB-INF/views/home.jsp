@@ -90,6 +90,11 @@
 	
 	
 	
+	
+	
+	
+	
+	
 	<div id="footer">
 		<tiles:insertAttribute name="footer"/>
 	</div>
