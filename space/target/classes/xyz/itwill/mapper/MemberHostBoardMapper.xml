@@ -164,12 +164,12 @@
 	
 	<!-- Review 게시글 총개수 -->	
 	<select id="selectHostReviewCount" resultType="int">
-		select count(*) from review
+		select count(*) from review where r_hid='${hId}'
 	</select>
 	
 	<!-- Review 게시글 페이징. -->
 	<select id="selectHostReviewList" resultMap="SelectMemberResultMap">
-		select * from (select rownum rn, reviewboard.* from (select * from Review order by r_no desc) reviewboard) where rn between #{startRow} and #{endRow}
+		select * from (select rownum rn, reviewboard.* from (select * from Review where r_hid='${hId}' order by r_no desc) reviewboard) where rn between #{startRow} and #{endRow}
 	</select>
 	
 	<!--Host Reserve -->
@@ -181,17 +181,9 @@
 		JOIN space ON pay.p_sno = space.s_no
 		JOIN host ON space.s_hid = host.h_id
 		WHERE space.s_hid= '${hId}'
+		
+		
 	</select>
-	
-	<!-- Reserve 게시글 총개수( -->	<!-- 
-	<select id="selectHostReserve" resultType="Pay">
-		SELECT *
-		FROM pay
-		JOIN space ON pay.p_sno = space.s_no
-		JOIN host ON space.s_hid = host.h_id
-		WHERE space.s_hid= '${hId}'
-	</select> -->
-	
 	
 	<!-- Reserve 게시글 페이징. -->
 	<select id="selectHostReserveList" resultMap="SelectMemberResultMap">
@@ -204,13 +196,23 @@
 	
 	<!-- Question 게시글 총개수 -->	
 	<select id="selectHostQuestionCount" resultType="int">
-		select count(*) from question
+		select count(*) from question where q_hid='${hId}'
 	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	<!-- Question 게시글 페이징. -->
 	<select id="selectHostQuestionList" resultMap="SelectMemberResultMap">
-		select * from (select rownum rn, questionboard.* from (select * from Question order by q_no desc) questionboard) where rn between #{startRow} and #{endRow}
+		select * from (select rownum rn, questionboard.* from (select * from Question where q_hid='${hId}' order by q_no desc) questionboard) where rn between #{startRow} and #{endRow}
 	</select>
 	
 	

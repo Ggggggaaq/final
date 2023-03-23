@@ -217,9 +217,9 @@ public class MemberController2 {
 					
 					@RequestMapping(value = "host_reviewList", method = RequestMethod.GET)
 					@ResponseBody
-					public Map<String, Object> ReviewList2(@RequestParam(defaultValue = "1") int pageNum) {
-					
-						int totalQuestion=memberHostBoardDao.selectHostReviewCount();
+					public Map<String, Object> ReviewList2(@RequestParam(defaultValue = "1") int pageNum,HttpSession session) {
+						Host loginHost=(Host)session.getAttribute("loginHost");
+						int totalQuestion=memberHostBoardDao.selectHostReviewCount(loginHost.getHId());
 						int pageSize=6;
 						int blockSize=5;
 						
@@ -228,6 +228,7 @@ public class MemberController2 {
 						Map<String, Object> pageMap=new HashMap<String, Object>();
 						pageMap.put("startRow", pager.getStartRow());
 						pageMap.put("endRow", pager.getEndRow());
+						pageMap.put("hId", loginHost.getHId());
 						
 						List<SelectMember> reviewList=memberHostBoardDao.selectHostReviewList(pageMap);
 						
@@ -268,9 +269,9 @@ public class MemberController2 {
 					
 					@RequestMapping(value = "host_questionList", method = RequestMethod.GET)
 					@ResponseBody
-					public Map<String, Object> QuestionList2(@RequestParam(defaultValue = "1") int pageNum) {
-						
-						int totalQuestion=memberHostBoardDao.selectHostReviewCount();
+					public Map<String, Object> QuestionList2(@RequestParam(defaultValue = "1") int pageNum,HttpSession session) {
+						Host loginHost=(Host)session.getAttribute("loginHost");
+						int totalQuestion=memberHostBoardDao.selectHostReviewCount(loginHost.getHId());
 						int pageSize=6;
 						int blockSize=5;
 						
@@ -279,6 +280,7 @@ public class MemberController2 {
 						Map<String, Object> pageMap=new HashMap<String, Object>();
 						pageMap.put("startRow", pager.getStartRow());
 						pageMap.put("endRow", pager.getEndRow());
+						pageMap.put("hId", loginHost.getHId());
 						
 						List<SelectMember> questionList=memberHostBoardDao.selectHostQuestionList(pageMap);
 						
