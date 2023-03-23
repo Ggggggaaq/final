@@ -271,7 +271,7 @@ public class MemberController2 {
 					@ResponseBody
 					public Map<String, Object> QuestionList2(@RequestParam(defaultValue = "1") int pageNum,HttpSession session) {
 						Host loginHost=(Host)session.getAttribute("loginHost");
-						int totalQuestion=memberHostBoardDao.selectHostReviewCount(loginHost.getHId());
+						int totalQuestion=memberHostBoardDao.selectHostQuestionCount(loginHost.getHId());
 						int pageSize=6;
 						int blockSize=5;
 						
