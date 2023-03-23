@@ -83,6 +83,13 @@
 		<tiles:insertAttribute name="content"/>
 	</div>
 	
+	
+	
+	
+	
+	
+	
+	
 	<div id="footer">
 		<tiles:insertAttribute name="footer"/>
 	</div>
