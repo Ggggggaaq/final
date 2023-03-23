@@ -7,6 +7,7 @@
 	<resultMap type="Review" id="reviewResultMap" autoMapping="true"/> 
 	<resultMap type="Pay" id="reserveResultMap" autoMapping="true"/> 
 	<resultMap type="Question" id="questionResultMap" autoMapping="true"/> 
+	<resultMap type="Space" id="spaceResultMap" autoMapping="true"/> 
 	<resultMap type="Member" id="memberResultMap" autoMapping="true"/>
 	<resultMap type="Host" id="hostResultMap" autoMapping="true"/>
 	
@@ -16,6 +17,7 @@
 		<collection property="reviewList" resultMap="reviewResultMap" autoMapping="true"/>
 		<collection property="reserveList" resultMap="reserveResultMap" autoMapping="true"/>
 		<collection property="questionList" resultMap="questionResultMap" autoMapping="true"/>
+		<collection property="spaceList" resultMap="spaceResultMap" autoMapping="true"/>
 	</resultMap>	
 	
 	
@@ -174,13 +176,28 @@
 	
 	<!-- Reserve 게시글 총개수 -->	
 	<select id="selectHostReserveCount" resultType="int">
-		select count(*) from pay
+		SELECT COUNT(*)
+		FROM pay
+		JOIN space ON pay.p_sno = space.s_no
+		JOIN host ON space.s_hid = host.h_id
+		WHERE space.s_hid= '${hId}'
 	</select>
+	
+	<!-- Reserve 게시글 총개수( -->	<!-- 
+	<select id="selectHostReserve" resultType="Pay">
+		SELECT *
+		FROM pay
+		JOIN space ON pay.p_sno = space.s_no
+		JOIN host ON space.s_hid = host.h_id
+		WHERE space.s_hid= '${hId}'
+	</select> -->
 	
 	
 	<!-- Reserve 게시글 페이징. -->
 	<select id="selectHostReserveList" resultMap="SelectMemberResultMap">
-		select * from (select rownum rn, payboard.* from (select * from Pay order by p_no desc) payboard) where rn between #{startRow} and #{endRow}
+	select * from (select rownum rn, payboard.* from (select * from 
+	Pay join space on pay.p_sno = space.s_no where space.s_hid= '${hId}' 
+	order by p_no desc) payboard) where rn between #{startRow} and #{endRow}
 	</select>
 	
 	<!-- Host Question-->

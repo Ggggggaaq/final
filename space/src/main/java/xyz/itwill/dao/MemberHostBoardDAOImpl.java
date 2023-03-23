@@ -108,10 +108,16 @@ public class MemberHostBoardDAOImpl implements MemberHostBoardDAO {
 	}
 
 	@Override
-	public int selectHostReserveCount() {
+	public int selectHostReserveCount(String hId) {
 		
-		return sqlSession.getMapper(MemberHostBoardMapper.class).selectHostReserveCount();
+		return sqlSession.getMapper(MemberHostBoardMapper.class).selectHostReserveCount(hId);
 	}
+	/*
+	@Override
+	public int selectHostReserve(String hId) {
+		
+		return sqlSession.getMapper(MemberHostBoardMapper.class).selectHostReserve(hId);
+	}*/
 	
 	/*
 	@Override

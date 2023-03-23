@@ -16,9 +16,13 @@ public class SelectMember {
 	//Pay 테이블의 검색결과를 저장하기 위한 필드 : 검색행 0개 이상
 	private List<Pay> reserveList;
 	
+	private List<Space> spaceList;
+	
 	//HOST 테이블의 검색결과를 저장하기 위한 필드 : 검색행 1개
 	private Member member;
 	
 	//HOST 테이블의 검색결과를 저장하기 위한 필드 : 검색행 1개
 	private Host host;
+	
+	
 }

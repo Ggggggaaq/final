@@ -242,9 +242,9 @@ public class MemberController2 {
 					
 					@RequestMapping(value = "host_reserveList", method = RequestMethod.GET)
 					@ResponseBody
-					public Map<String, Object> ReserveList2(@RequestParam(defaultValue = "1") int pageNum) {
-						
-						int totalQuestion=memberHostBoardDao.selectHostReserveCount();
+					public Map<String, Object> ReserveList2(@RequestParam(defaultValue = "1") int pageNum,HttpSession session) {
+						Host loginHost=(Host)session.getAttribute("loginHost");
+						int totalQuestion=memberHostBoardDao.selectHostReserveCount(loginHost.getHId());
 						int pageSize=6;
 						int blockSize=5;
 						
@@ -253,6 +253,7 @@ public class MemberController2 {
 						Map<String, Object> pageMap=new HashMap<String, Object>();
 						pageMap.put("startRow", pager.getStartRow());
 						pageMap.put("endRow", pager.getEndRow());
+						pageMap.put("hId", loginHost.getHId());
 						
 						List<SelectMember> reserveList=memberHostBoardDao.selectHostReserveList(pageMap);
 						

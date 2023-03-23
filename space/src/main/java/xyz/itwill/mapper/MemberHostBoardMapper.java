@@ -32,7 +32,8 @@ public interface MemberHostBoardMapper {
 	int selectQuestionCount(String qMid);
 
 	//Host Reserve
-	int selectHostReserveCount();
+	int selectHostReserveCount(String hId);
+	//int selectHostReserve(String hId);
 	List<SelectMember> selectHostReserveList(Map<String, Object> map);
 
 	//Host Review
