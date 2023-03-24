@@ -21,7 +21,7 @@
 	
 	<h1 style="text-align: center; font-size: 1.5em; font-weight:900; color: #706FFF;">게스트 아이디/비밀번호 찾기</h1>
 	<div class="container"  class="d-flex justify-content-center align-items-center" style= "height: 100vh">
-			<form action="${pageContext.request.contextPath }/member_find" method="post" id="findForm" 
+			<form action="${pageContext.request.contextPath }/host_find" method="post" id="findForm" 
 			style="	
 			border: 1px solid #706FFF;
 			width: 50%;
@@ -31,11 +31,11 @@
 			margin-bottom: 300px;">
 			  <div>
 			    <label>이름</label>
-			    <input type="text"   class="form-control mb-3 text-center" id="mName" name="mName" required>
+			    <input type="text"   class="form-control mb-3 text-center" id="hName" name="hName" required>
 			  </div>
 			  <div>
 			    <label >이메일</label>
-			    <input type="email"  class="form-control mb-3 text-center" id="mEmail" name="mEmail" required>
+			    <input type="email"  class="form-control mb-3 text-center" id="hEmail" name="hEmail" required>
 			  </div>
 			  
 			  <button type="submit">입력</button>

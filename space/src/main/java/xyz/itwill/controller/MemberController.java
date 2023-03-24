@@ -92,37 +92,7 @@ public class MemberController {
 		return "board/notice_host";
 	}
 	
-	//member 비밀번호찾기
-	@RequestMapping(value="/member_find",method = RequestMethod.GET )
-	public String find() {
-		return "member/member_find";
-	}
 	
-	//member 아이디, 비밀번호찾기(10자리 숫자 랜덤배열)
-	@RequestMapping(value="/member_find", method = RequestMethod.POST)
-	public String find(@ModelAttribute Member member,Model model) {
-	    try {
-	    	Member FoundMember=memberService.getEmailMember(member.getMEmail());
-	        memberService.pwModifyMember(member);
-	        model.addAttribute("mId",FoundMember.getMId());
-	        model.addAttribute("mPw",member.getMPw());
-	        model.addAttribute("mStatus",FoundMember.getMStatus());
-	        return "member/member_find_result";
-	    } catch (MemberNotFoundException e) {
-	        model.addAttribute("errorMessage", e.getMessage());
-	        
-	        return "member/member_find"; 
-	    }
-	}
-	
-	//member 비밀번호찾기 후 DB솔트처리.
-	@RequestMapping(value="/member_find_end" )
-	public String find2(@ModelAttribute Member member) throws MemberNotFoundException {
-	
-		memberService.pwModifyMember2(member);
-	
-		return "home";
-	}
 	
 	//찜리스트  
 	
