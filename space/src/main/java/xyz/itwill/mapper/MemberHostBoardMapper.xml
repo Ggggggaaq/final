@@ -30,7 +30,7 @@
 			<selectKey resultType="int" keyProperty="rNo" order="BEFORE">
 				select review_seq.nextval from dual
 			</selectKey>
-			insert into review values(#{rNo}, #{rTitle}, #{rContent}, #{rImg},1 , #{rStar},1 ,sysdate, #{rSno}, #{rMid}, #{rPno}, #{rCount}, #{rHid})	
+			insert into review values(#{rNo}, #{rTitle}, #{rContent}, #{rImg},1 , #{rStar},1 ,sysdate, #{rSno}, #{rMid}, #{rPno}, #{rCount})	
 	</insert>
 	
 	
