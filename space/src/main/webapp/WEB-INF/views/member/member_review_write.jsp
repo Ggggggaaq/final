@@ -5,9 +5,7 @@
 <html>
 <head>
 <style type="text/css">
-td {
-	text-align: left;
-}
+
 .rating .star {
   color: #ccc;
   cursor: pointer;
@@ -16,6 +14,9 @@ td {
 .rating .star.active {
   color: gold;
 }
+
+
+
 
 </style>
 <title>Space Moon</title>
@@ -29,22 +30,29 @@ td {
 <br>
 <div>
 	<form class="row gx-3 gy-2 align-items-center" name="f" method="post">
-		
+		 <table>
+		    <thead>
+		      <tr>
+		        <th>선택</th>
+		        <th>공간번호</th>
+		        <th>예약일</th>
+		      
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <c:forEach var="pay" items="${reserveList}">
+		        <tr> 
+		          <td><input type="checkbox" name="rPno" value="${pay.pNo}"></td> 
+		          <td><input type="hidden" name="rSno" value="${pay.pSno}">${pay.pSno}</td>
+		          <td>${pay.pRedate}</td>
+		      
+		        </tr>
+		      </c:forEach>
+		    </tbody>
+		  </table>
+				
 		<table class="table table-bordered">
-			<tr>
-				<th>상품 번호</th>
-				<td>
-					<input type="text" id="rSno">
-					
-				</td>
-			</tr>
-			<tr>
-				<th>상품명</th>
-				<td>
-					<input type="text" id="rName">
-
-				</td>
-			</tr>
+			
 			<tr>
 				<th>별점</th>	
 				<td><div class="rating" >
@@ -62,13 +70,13 @@ td {
 			<tr>
 				<th>제목</th>
 				<td>
-					<input type="text" name="rTitle" id="rTitle" style="width: 800px;">
+					<input type="text" name="rTitle" id="rTitle" style="width: 700px;">
 				</td>
 			</tr>
 			<tr>
 				<th>내용</th>
 				<td>
-					<textarea rows="5" cols="91" name="rContent" id="rContent"></textarea>
+					<textarea rows="5" cols="91" name="rContent" id="rContent" ></textarea>
 				</td>
 			</tr>
 			
@@ -126,7 +134,23 @@ function reviewAdd() {
 			  });	
 			});
 		
-			
+			  // 전체 체크박스 가져오기
+		    var checkboxes = document.getElementsByName('rPno');
+
+		    // 체크박스 체크 상태 변경 시 호출되는 함수
+		    function toggleCheckbox(checkbox) {
+		        // 다른 체크박스들 체크 해제
+		        checkboxes.forEach(function(item) {
+		            if (item !== checkbox) item.checked = false;
+		        });
+		    }
+
+		    // 체크박스 클릭 이벤트 리스너 등록
+		    checkboxes.forEach(function(item) {
+		        item.addEventListener('click', function() {
+		            toggleCheckbox(this);
+		        });
+		    });
 	
 </script>
 </html>

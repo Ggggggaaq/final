@@ -7,6 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
+import xyz.itwill.dto.Pay;
+import xyz.itwill.dto.Pay2;
 import xyz.itwill.dto.Question;
 import xyz.itwill.dto.Review;
 import xyz.itwill.dto.SelectMember;
@@ -179,9 +181,9 @@ public class MemberHostBoardDAOImpl implements MemberHostBoardDAO {
 	}
 
 	@Override
-	public List<SelectMember> selectReserveMid(String pMid) {
+	public List<Pay2> selectReserveListmId(String mId) {
 		// TODO Auto-generated method stub
-		return sqlSession.getMapper(MemberHostBoardMapper.class).selectReserveMid(pMid);
+		return sqlSession.getMapper(MemberHostBoardMapper.class).selectReserveListmId(mId);
 	}
 
 }

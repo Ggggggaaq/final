@@ -24,6 +24,8 @@ import xyz.itwill.dto.Faq;
 import xyz.itwill.dto.Host;
 import xyz.itwill.dto.Member;
 import xyz.itwill.dto.Notice;
+import xyz.itwill.dto.Pay;
+import xyz.itwill.dto.Pay2;
 import xyz.itwill.dto.Question;
 import xyz.itwill.dto.Review;
 import xyz.itwill.dto.SelectMember;
@@ -48,15 +50,19 @@ public class MemberHostBoardController {
 			@RequestMapping(value="/member_review_write", method = RequestMethod.GET)
 			public String find2(HttpSession session,Model model)  {
 				Member loginMember = (Member)session.getAttribute("loginMember");
-				List<SelectMember> reserveList=memberHostBoardDao.selectReserveMid(loginMember.getMId());	 //회원 아이디를 통해 예약리스트 출력.
+				
+				List<Pay2> reserveList=memberHostBoardDao.selectReserveListmId(loginMember.getMId());	 //회원 아이디를 통해 예약리스트 출력.
 				model.addAttribute("mId",loginMember.getMId());
 			    model.addAttribute("reserveList", reserveList); // list 추가
+			    
 				return "member/member_review_write";
 			}
 		
 		//입력값 작성 후 게시글 등록 클릭했을경우 삽입 후 notice페이지로 이동
 			@RequestMapping(value = "member_review_write", method = RequestMethod.POST)
 			public String noticewrite(@ModelAttribute Review review) {
+				
+				
 				memberHostBoardService.addReview(review);
 				return "redirect:/member_review";
 			}

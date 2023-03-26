@@ -4,6 +4,8 @@ package xyz.itwill.mapper;
 import java.util.List;
 import java.util.Map;
 
+import xyz.itwill.dto.Pay;
+import xyz.itwill.dto.Pay2;
 import xyz.itwill.dto.Question;
 import xyz.itwill.dto.Review;
 import xyz.itwill.dto.SelectMember;
@@ -18,7 +20,7 @@ public interface MemberHostBoardMapper {
 	int selectReviewCount(String rMid);
 	Review selectReview(int rNo);
 	List<SelectMember> selectReviewList(Map<String, Object> map);
-	List<SelectMember> selectReserveMid(String pMid);
+	List<Pay2> selectReserveListmId(String mId);
 	
 	//Member Reserve
 	List<SelectMember> SelectReserveList(Map<String, Object> map);

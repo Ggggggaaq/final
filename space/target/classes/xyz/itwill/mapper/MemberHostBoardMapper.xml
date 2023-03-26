@@ -30,7 +30,7 @@
 			<selectKey resultType="int" keyProperty="rNo" order="BEFORE">
 				select review_seq.nextval from dual
 			</selectKey>
-			insert into review values(#{rNo}, #{rTitle}, #{rContent}, #{rImg},1 , #{rStar},1 ,sysdate, #{rSno}, #{rMid}, #{rPno}, #{rCount})	
+			insert into review values(#{rNo}, #{rTitle}, #{rContent}, #{rImg},1 , #{rStar},1 ,sysdate, #{rSno}, #{rMid}, #{rPno}, #{rCount}, #{rHid})	
 	</insert>
 	
 	
@@ -76,8 +76,8 @@
 		select * from review where r_no=#{rNo}
 	</select>
 	
-	<!-- 회원번호를 전달받아 Reserve 내역 검색 -->		
-	<select id="selectReserveMid" resultType="SelectMember">
+	<!-- 회원번호를 전달받아 Pay 내역 검색 -->		
+	<select id="selectReserveListmId" resultType="Pay2">
 		select * from Pay where p_mid=#{pMId}
 	</select>
 	
