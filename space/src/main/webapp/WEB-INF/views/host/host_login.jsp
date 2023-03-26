@@ -24,7 +24,7 @@
 		<div class="d-flex justify-content-around align-items-center ">
 			<button type="button" id="login_btn" class="btn btn-outline-secondary w-25">로그인</button>
 			<button type="button" id="join_btn" class="btn btn-outline-secondary w-25">회원가입</button>
-			<button type="button" class="btn btn-outline-secondary w-25" style="font-size:0.7em;">아이디/비밀번호찾기</button>
+			<button type="button" id="find_btn" class="btn btn-outline-secondary w-25" style="font-size:0.7em;">아이디/비밀번호찾기</button>
 		</div>  
 		<div id="message"class="mt-5 mb-0 text-danger">${message }</div>
 	</form>
@@ -48,6 +48,10 @@ $("#login_btn").click(function() {
 
 $("#join_btn").click(function() {
 	location.href="${pageContext.request.contextPath }/host/join/host";
+});
+
+$("#find_btn").click(function() {
+	location.href="${pageContext.request.contextPath }/host/host_find";
 });
 </script>
 

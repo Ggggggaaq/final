@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<style type="text/css">
-		.container {
+		.container2 {
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -19,9 +19,9 @@
 </head>
 <body >
 	
-	<h1 style="text-align: center; font-size: 1.5em; font-weight:900; color: #706FFF;">게스트 아이디/비밀번호 찾기</h1>
-	<div class="container"  class="d-flex justify-content-center align-items-center" style= "height: 100vh">
-			<form action="${pageContext.request.contextPath }/host_find" method="post" id="findForm" 
+	<h1 style="text-align: center; font-size: 1.5em; font-weight:900; color: #706FFF;">호스트 아이디/비밀번호 찾기</h1>
+	<div class="container2"  class="d-flex justify-content-center align-items-center" style= "height: 100vh">
+			<form action="${pageContext.request.contextPath }/host/host_find" method="post" id="findForm" 
 			style="	
 			border: 1px solid #706FFF;
 			width: 50%;

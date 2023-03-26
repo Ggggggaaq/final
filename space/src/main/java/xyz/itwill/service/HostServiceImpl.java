@@ -3,6 +3,7 @@ package xyz.itwill.service;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,9 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import xyz.itwill.dao.HostDAO;
 import xyz.itwill.dto.Host;
+import xyz.itwill.dto.Host;
 import xyz.itwill.exception.ExistsHostException;
 import xyz.itwill.exception.HostNotFoundException;
 import xyz.itwill.exception.LoginAuthFailException;
+import xyz.itwill.exception.HostNotFoundException;
 @Service
 @RequiredArgsConstructor
 public class HostServiceImpl implements HostService {
@@ -139,6 +142,41 @@ public class HostServiceImpl implements HostService {
 		}
 	}
 
+
+
+	@Override
+	public void pwModifyHost(Host host) throws HostNotFoundException {
+		
+		 // 랜덤한 10자리 비밀번호 생성
+	    String randomPassword = RandomStringUtils.randomAlphanumeric(10);
+		//아니라면 암호화된 비밀번호로 변경후
+		host.setHPw(randomPassword);
+		//삽입처리
+		hostDAO.updatePassword(host);
+		
+	}
+	
+	@Override
+	public void pwModifyHost2(Host host) throws HostNotFoundException {
+		
+		
+		//암호화된 비밀번호로 변경후
+		host.setHPw(BCrypt.hashpw(host.getHPw(),BCrypt.gensalt()));
+		//삽입처리
+		hostDAO.updateHost(host);
+		
+	}
+
+	@Override
+	public Host getEmailHost(String hEmail) throws HostNotFoundException {
+	//전달받은 아이디로 기존 회원정보를 검색하여 검색결과를 반환받아 저장
+			Host host=hostDAO.selectEmailHost(hEmail);
+			//검색된 회원정보의 아이디가 없을 경우 예외전달
+			if(host==null) {
+				throw new HostNotFoundException("게스트 아이디의 회원정보가 존재하지 않습니다.");
+			}
+			return host;
+	}
 
 
 

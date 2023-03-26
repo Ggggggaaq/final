@@ -57,6 +57,18 @@ public class HostDAOImpl implements HostDAO {
 		return sqlSession.getMapper(HostMapper.class).removeHost(hId);
 	}
 
+	@Override
+	public int updatePassword(Host host) {
+		
+		return sqlSession.getMapper(HostMapper.class).updatePassword(host);
+	}
+
+	@Override
+	public Host selectEmailHost(String hEmail) {
+		
+		return sqlSession.getMapper(HostMapper.class).selectEmailHost(hEmail);
+	}
+
 
 
 	

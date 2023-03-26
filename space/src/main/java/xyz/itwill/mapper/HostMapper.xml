@@ -69,6 +69,19 @@
 	</update>
 
 	
+	<!-- 변경 처리 -->
+	<select id="selectEmailHost" resultType="Host">
+		select * from host where h_email=#{hEmail}
+	</select>
+	
+	
+	<!-- 회원정보를 전달받아 MEMBER 테이블에 저장된 회원정보 변경 -->
+	  <update id="updatePassword">
+	    UPDATE host
+	    SET h_pw = #{hPw}
+	    WHERE h_email = #{hEmail} and h_name = #{hName}
+	  </update>
+	  
 	
 	<!-- 탈퇴 처리 -->
 	<update id="removeHost">

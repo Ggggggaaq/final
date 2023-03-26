@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-		<form action="${pageContext.request.contextPath}host_find_end" method="post">
+		<form action="${pageContext.request.contextPath}/host/host_find_end" method="post">
 		<h1>회원 정보</h1>
 		 <p id="mId">id = ${hId}</p>
  	     <p id="mPw">password = ${hPw}</p>

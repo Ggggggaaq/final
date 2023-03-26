@@ -14,4 +14,6 @@ public interface HostDAO {
 	List<Host> selectstatusHostList(Map<String, Object> map);
 	int deleteHost(String hId);
 	int removeHost(String hId);
+	int updatePassword(Host host);
+	Host selectEmailHost(String hEmail);
 }
