@@ -140,15 +140,20 @@
 	                	} else if (this.reviewList[0].rstatus === 0) {
 	                	  html += "      <p id='pRepeople' style='color:blue; font-weight: bold;'> 답변</p>";
 	                	} 
-	                html += "    </div>";
-
+	                html += "      <h5 id='pSno'>공간번호: " + this.reviewList[0].rpno + "</h5>";
+		             
+	                 html += "    </div>";
 	                html += "    <div class='card-body'>";
 	                
-
-	                html += "      <h5 id='pSno'>공간번호: " + this.reviewList[0].rpno + "</h5>";
+	                html += "      <p id='pStar' style='color:gold; font-weight: bold;'> 별점 : ";
+	                for (var i = 0; i < this.reviewList[0].rstar; i++) {
+	                  html += "★";
+	                }
+	                html += "</p>";
+	              
 	                html += "      <h5 id='pRename'>리뷰 제목 : " + this.reviewList[0].rtitle + "</h5>";
 	                html += "      <h5 id='pRedate'>리뷰 내용: " + this.reviewList[0].rcontent  + "</h5>";
-	                html +="<button type='button' onclick='modify("+this.reviewList[0].rno+");' id='modifyBtn' class='btn btn-primary btn-sm' style='margin-right : 20px;'>글 변경</button>";
+	                html += "<button type='button' onclick='location.href=\"${pageContext.request.contextPath}/member_review_modify/" + this.reviewList[0].rno + "\";' id='modifyBtn' class='btn btn-primary btn-sm' style='margin-right : 20px;'>글 변경</button>";
 	                html +="<button type='button' onclick='remove("+this.reviewList[0].rno+");' id='removeBtn' class='btn btn-primary btn-sm'>글 삭제</button>";
 	                html += "    </div>";
 	                html += "  </div>";
@@ -208,23 +213,7 @@
 	
 	function modify(rNo) {
 		var rNo=rNo;
-		var nmstatus=$("#selectnmstatus_"+rNo).val();
-		var nstatus=$("#selectnstatus_"+rNo).val();
-
-		$.ajax({
-			type: "put",
-			url: "${pageContext.request.contextPath}/member/notice/modifystatus/"+rNo,
-			contentType: "application/json",
-			dataType: "text",
-			success: function (result) {
-				if(result=="success"){
-				noticeListDisplay(page);
-				}
-			},
-			error: function(xhr) {
-				alert("에러코드(게시글 변경) = "+xhr.status)
-			}
-		});
+	
 	}
 	
 	

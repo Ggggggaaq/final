@@ -25,7 +25,6 @@ import xyz.itwill.dto.Host;
 import xyz.itwill.dto.Member;
 import xyz.itwill.dto.Notice;
 import xyz.itwill.dto.Pay;
-import xyz.itwill.dto.Pay2;
 import xyz.itwill.dto.Question;
 import xyz.itwill.dto.Review;
 import xyz.itwill.dto.SelectMember;
@@ -51,7 +50,7 @@ public class MemberHostBoardController {
 			public String find2(HttpSession session,Model model)  {
 				Member loginMember = (Member)session.getAttribute("loginMember");
 				
-				List<Pay2> reserveList=memberHostBoardDao.selectReserveListmId(loginMember.getMId());	 //회원 아이디를 통해 예약리스트 출력.
+				List<Pay> reserveList=memberHostBoardDao.selectReserveListmId(loginMember.getMId());	 //회원 아이디를 통해 예약리스트 출력.
 				model.addAttribute("mId",loginMember.getMId());
 			    model.addAttribute("reserveList", reserveList); // list 추가
 			    
@@ -66,16 +65,25 @@ public class MemberHostBoardController {
 				memberHostBoardService.addReview(review);
 				return "redirect:/member_review";
 			}
-
 			
-			//member write,update,delete 처리.
-			@RequestMapping(value="/member_qna_write", method = RequestMethod.GET)
-			public String qnawrite(HttpSession session,Model model)  {
-				Member loginMember = (Member)session.getAttribute("loginMember");
-				model.addAttribute("mId",loginMember.getMId());
-				return "member/member_qna_write";
+			@RequestMapping(value ="member_review_modify/{rNo}", method = RequestMethod.GET)
+			public String reviewModify(@PathVariable int rNo, Model model) throws BoardNotFoundException {
+				model.addAttribute("review", memberHostBoardService.getReview(rNo));
+				return "member/member_review_modify";
 			}
 			
+			@RequestMapping(value ="member_review_modify", method = RequestMethod.POST)
+			public String reviewModify(@RequestParam int rNo, @ModelAttribute Review modifiedReview) throws BoardNotFoundException {
+				Review review= memberHostBoardService.getReview(rNo);
+			    review.setRContent(modifiedReview.getRContent());
+			    review.setRTitle(modifiedReview.getRTitle());
+			    review.setRStar(modifiedReview.getRStar());
+			    memberHostBoardService.modifyReview(review);	
+			    return "redirect:/member_review";
+			}
+			
+		
+
 			//입력값 작성 후 게시글 등록 클릭했을경우 삽입 후 notice페이지로 이동
 			@RequestMapping(value = "member_qna_write", method = RequestMethod.POST)
 			public String qnawrite(@ModelAttribute Question question) {
@@ -116,6 +124,7 @@ public class MemberHostBoardController {
 						return resultMap;
 					}	
 					
+				
 					
 					
 					//notice 전체 리스트 출력 시 페이징 처리를 위해 Json형식의 text로 Map객체 전달

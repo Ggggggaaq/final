@@ -16,7 +16,6 @@ public class Review {
 	private Date rDate;		//리뷰 작성 날짜
 	private int rSno;			//공간 번호
 	private String rMid;		//사용자 아이디
-	private String rHid;		//호스트 아이디
 	private int rPno;			//결제 번호
 	private int rCount;		//리뷰 수
 	private Review reply;
