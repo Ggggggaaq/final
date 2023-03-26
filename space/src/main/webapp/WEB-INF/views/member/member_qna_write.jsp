@@ -24,7 +24,7 @@ td {
 
 <div class="content" style="width: 930px; margin: 0 auto; position: relative; text-align: center;" >
 <br>
-<h3>Review 등록</h3>
+<h3>Q&A 등록</h3>
 <br>
 <br>
 <div>

@@ -44,7 +44,7 @@ public interface MemberHostBoardDAO {
 	List<SelectMember> selectHostReserveList(Map<String, Object> map);
 
 	//Host Review
-	int selectHostReviewCount(String hId);
+	int selectHostReviewCount();
 	List<SelectMember> selectHostReviewList(Map<String, Object> map);
 	
 	//Host Question

@@ -30,7 +30,7 @@
 			<selectKey resultType="int" keyProperty="rNo" order="BEFORE">
 				select review_seq.nextval from dual
 			</selectKey>
-			insert into review values(#{rNo}, #{rTitle}, #{rContent}, #{rImg},1 , #{rStar},1 ,sysdate, #{rSno}, #{rMid}, #{rPno}, #{rCount}, #{rHid})	
+			insert into review values(#{rNo}, #{rTitle}, #{rContent}, #{rImg},1 , #{rStar},1 ,sysdate, #{rSno}, #{rMid}, #{rPno}, #{rCount})	
 	</insert>
 	
 	
@@ -169,12 +169,12 @@
 	
 	<!-- Review 게시글 총개수 -->	
 	<select id="selectHostReviewCount" resultType="int">
-		select count(*) from review where r_hid='${hId}'
+		select count(*) from review 
 	</select>
 	
 	<!-- Review 게시글 페이징. -->
 	<select id="selectHostReviewList" resultMap="SelectMemberResultMap">
-		select * from (select rownum rn, reviewboard.* from (select * from Review where r_hid='${hId}' order by r_no desc) reviewboard) where rn between #{startRow} and #{endRow}
+		select * from (select rownum rn, reviewboard.* from (select * from Review order by r_no desc) reviewboard) where rn between #{startRow} and #{endRow}
 	</select>
 	
 	<!--Host Reserve -->
@@ -203,16 +203,6 @@
 	<select id="selectHostQuestionCount" resultType="int">
 		select count(*) from question where q_hid='${hId}'
 	</select>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	<!-- Question 게시글 페이징. -->

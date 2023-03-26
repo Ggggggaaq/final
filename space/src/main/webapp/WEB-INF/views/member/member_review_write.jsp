@@ -54,7 +54,7 @@
 		<table class="table table-bordered">
 			
 			<tr>
-				<th>별점</th>	
+				<th>별점 ${rSno}</th>	
 				<td><div class="rating" >
 					  <span class="star" title="1">&#9733;</span>
 					  <span class="star" title="2">&#9733;</span>

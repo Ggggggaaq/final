@@ -220,9 +220,9 @@ public class MemberHostBoardController {
 					
 					@RequestMapping(value = "host_reviewList", method = RequestMethod.GET)
 					@ResponseBody
-					public Map<String, Object> ReviewList2(@RequestParam(defaultValue = "1") int pageNum,HttpSession session) {
-						Host loginHost=(Host)session.getAttribute("loginHost");
-						int totalQuestion=memberHostBoardDao.selectHostReviewCount(loginHost.getHId());
+					public Map<String, Object> ReviewList2(@RequestParam(defaultValue = "1") int pageNum) {
+
+						int totalQuestion=memberHostBoardDao.selectHostReviewCount();
 						int pageSize=6;
 						int blockSize=5;
 						
@@ -231,7 +231,7 @@ public class MemberHostBoardController {
 						Map<String, Object> pageMap=new HashMap<String, Object>();
 						pageMap.put("startRow", pager.getStartRow());
 						pageMap.put("endRow", pager.getEndRow());
-						pageMap.put("hId", loginHost.getHId());
+				
 						
 						List<SelectMember> reviewList=memberHostBoardDao.selectHostReviewList(pageMap);
 						
