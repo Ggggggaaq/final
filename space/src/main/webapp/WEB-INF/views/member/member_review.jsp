@@ -60,6 +60,8 @@
 </style>
 </head>
 <body>
+
+
 	<div class="container">
 		<h1>이용 후기 관리</h1>
 		
@@ -92,6 +94,7 @@
 		<div id="noticetable" class="w-100" style="margin: 0 auto;"></div>
 		<div id="pageNumDiv"></div>
 		
+	</div>
 		
 			
 	<button onclick="location.href='${pageContext.request.contextPath}/member_review_write'" type="button" id="writeBtn" class="btn btn-primary btn-sm">게시글등록</button>

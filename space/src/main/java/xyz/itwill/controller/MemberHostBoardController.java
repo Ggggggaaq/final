@@ -38,7 +38,7 @@ import xyz.itwill.util.Pager;
 
 @Controller
 @RequiredArgsConstructor
-public class MemberController2 {
+public class MemberHostBoardController {
 	
 	private final MemberHostBoardService memberHostBoardService;
 	private final MemberHostBoardDAO memberHostBoardDao;
@@ -48,7 +48,9 @@ public class MemberController2 {
 			@RequestMapping(value="/member_review_write", method = RequestMethod.GET)
 			public String find2(HttpSession session,Model model)  {
 				Member loginMember = (Member)session.getAttribute("loginMember");
+				List<SelectMember> reserveList=memberHostBoardDao.selectReserveMid(loginMember.getMId());	 //회원 아이디를 통해 예약리스트 출력.
 				model.addAttribute("mId",loginMember.getMId());
+			    model.addAttribute("reserveList", reserveList); // list 추가
 				return "member/member_review_write";
 			}
 		
@@ -84,11 +86,7 @@ public class MemberController2 {
 				return "success";
 			}
 			
-			
-			
-			
-				
-					//notice 전체 리스트 출력 시 페이징 처리를 위해 Json형식의 text로 Map객체 전달
+			//notice 전체 리스트 출력 시 페이징 처리를 위해 Json형식의 text로 Map객체 전달
 					
 					@RequestMapping(value = "member_reviewList", method = RequestMethod.GET)
 					@ResponseBody
@@ -210,7 +208,6 @@ public class MemberController2 {
 						resultMap.put("pager", pager);
 						return resultMap;
 					}	
-					
 					
 					
 					//notice 전체 리스트 출력 시 페이징 처리를 위해 Json형식의 text로 Map객체 전달

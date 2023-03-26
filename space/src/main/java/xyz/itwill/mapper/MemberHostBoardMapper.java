@@ -18,6 +18,7 @@ public interface MemberHostBoardMapper {
 	int selectReviewCount(String rMid);
 	Review selectReview(int rNo);
 	List<SelectMember> selectReviewList(Map<String, Object> map);
+	List<SelectMember> selectReserveMid(String pMid);
 	
 	//Member Reserve
 	List<SelectMember> SelectReserveList(Map<String, Object> map);

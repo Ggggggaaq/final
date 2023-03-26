@@ -76,6 +76,11 @@
 		select * from review where r_no=#{rNo}
 	</select>
 	
+	<!-- 회원번호를 전달받아 Reserve 내역 검색 -->		
+	<select id="selectReserveMid" resultType="SelectMember">
+		select * from Pay where p_mid=#{pMId}
+	</select>
+	
 	
 	<!-- 최신글순으로 정렬하여 원하는 글범위의 Review list 검색 -->		
 	<select id="selectReviewList" resultMap="SelectMemberResultMap">

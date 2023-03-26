@@ -178,4 +178,10 @@ public class MemberHostBoardDAOImpl implements MemberHostBoardDAO {
 		return sqlSession.getMapper(MemberHostBoardMapper.class).selectSpaceSno(params);
 	}
 
+	@Override
+	public List<SelectMember> selectReserveMid(String pMid) {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(MemberHostBoardMapper.class).selectReserveMid(pMid);
+	}
+
 }
