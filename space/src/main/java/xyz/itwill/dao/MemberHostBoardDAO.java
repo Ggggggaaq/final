@@ -36,7 +36,16 @@ public interface MemberHostBoardDAO {
 	int updateQuestion(Question question);
 	
 
-
+	//Space Review
+	int selectSpaceReviewCount(int rSno);
+	List<SelectMember> selectSpaceReviewList(Map<String, Object> map);
+		
+	//Space Question
+	int selectSpaceQuestionCount(int qSno);
+	List<SelectMember> selectSpaceQuestionList(Map<String, Object> map);
+		
+	
+	
 	//Host Reserve
 	int selectHostReserveCount(String hId);
 	//int selectHostReserve(String hId);

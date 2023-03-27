@@ -347,7 +347,51 @@ public class MemberHostBoardController {
 					}	
 					
 					
+					//Space Review,Q&A Controller
 					
 					
-				
+					
+					@RequestMapping(value = "space_reviewList/{rSno}", method = RequestMethod.GET)
+					@ResponseBody
+					public Map<String, Object> SpaceReviewList(@RequestParam(defaultValue = "1") int pageNum,@PathVariable int rSno) {
+
+						int totalQuestion=memberHostBoardDao.selectSpaceReviewCount(rSno);
+						int pageSize=6;
+						int blockSize=5;
+						
+						Pager pager=new Pager(pageNum, totalQuestion, pageSize, blockSize);
+						
+						Map<String, Object> pageMap=new HashMap<String, Object>();
+						pageMap.put("startRow", pager.getStartRow());
+						pageMap.put("endRow", pager.getEndRow());
+						pageMap.put("rSno", rSno);
+						List<SelectMember> reviewList=memberHostBoardDao.selectSpaceReviewList(pageMap);
+						
+						Map<String, Object> resultMap=new HashMap<String, Object>();
+						resultMap.put("reviewList", reviewList);
+						resultMap.put("pager", pager);
+						return resultMap;
+					}	
+					
+					@RequestMapping(value = "space_questionList/{qSno}", method = RequestMethod.GET)
+					@ResponseBody
+					public Map<String, Object> SpaceQuestionList(@RequestParam(defaultValue = "1") int pageNum,@PathVariable int qSno) {
+						
+						int totalQuestion=memberHostBoardDao.selectSpaceQuestionCount(qSno);
+						int pageSize=6;
+						int blockSize=5;
+						
+						Pager pager=new Pager(pageNum, totalQuestion, pageSize, blockSize);
+						
+						Map<String, Object> pageMap=new HashMap<String, Object>();
+						pageMap.put("startRow", pager.getStartRow());
+						pageMap.put("endRow", pager.getEndRow());
+						pageMap.put("qSno", qSno);
+						List<SelectMember> questionList=memberHostBoardDao.selectSpaceQuestionList(pageMap);
+						
+						Map<String, Object> resultMap=new HashMap<String, Object>();
+						resultMap.put("questionList", questionList);
+						resultMap.put("pager", pager);
+						return resultMap;
+					}	
 }

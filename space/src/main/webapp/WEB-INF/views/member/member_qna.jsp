@@ -133,12 +133,15 @@
 	                	  html += "      <p id='pRepeople' style='color:blue; font-weight: bold;'> 미답변</p>";
 	                	} else if (this.questionList[0].qstatus) {
 	                	  html += "      <p id='pRepeople' style='color:blue; font-weight: bold;'> 답변</p>";
-	                	}  html += "    </div>";
+	                	  
+	                	} 
+
+		            html += "      <h5 id='pSno'>공간번호: " + this.questionList[0].qsno + "</h5>";
+	                html += "    </div>";
 
 	                html += "    <div class='card-body'>";
 	                
 
-	                html += "      <h5 id='pSno'>공간번호: " + this.questionList[0].qsno + "</h5>";
 	                html += "      <h5 id='pRename'>Q&A 제목 : " + this.questionList[0].qtitle + "</h5>";
 	                html += "      <h5 id='pRedate'>Q&A 내용: " + this.questionList[0].qcontent  + "</h5>";
 	                html +="<button type='button' onclick='remove("+this.questionList[0].qno+");' id='removeBtn' class='btn btn-primary btn-sm'>글 삭제</button>";

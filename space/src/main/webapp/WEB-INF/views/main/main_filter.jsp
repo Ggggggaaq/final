@@ -57,7 +57,7 @@ a {
 			  	</div>
 			</div>
 		</div>
-		<div class="col">
+		<div class="col">		
 			<div id="place2" style="display:none;">
 				<button type="button" class=" btn btn-outline-primary w-100" id="HiddenPlace2">경기</button>
 				<div id="hidden_place2" style="display:none;">

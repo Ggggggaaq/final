@@ -459,18 +459,21 @@ function scrollToSection(id) {
     		});
     	
     	
-
-
+    // URL에서 sno 값을 추출하여 변수에 할당
+   
 	var page=1;
 	noticeListDisplay(page);
 	
 	function noticeListDisplay(pageNum) {
+		 var urlParams = new URLSearchParams(window.location.search);
+		    var rSno = urlParams.get('sno');
+
 	    page = pageNum;
-	    $.ajax({
-	        type: "get",
-	        url: "${pageContext.request.contextPath}/host_reviewList?pageNum=" + pageNum,
-	        dataType: "json",
-	        success: function(result) {
+		    $.ajax({
+		        type: "get",
+		        url: "${pageContext.request.contextPath}/space_reviewList/" + rSno + "?pageNum=" + pageNum,
+		        dataType: "json",
+		        success: function(result) {
 	        	  if (result.reviewList.length == 0) {
 	        	    var html = "<table>";
 	        	    html += "<tr>";
@@ -549,10 +552,14 @@ function scrollToSection(id) {
 noticeListDisplay2(page);
 
 function noticeListDisplay2(pageNum) {
+	 var urlParams = new URLSearchParams(window.location.search);
+	    var qSno = urlParams.get('sno');
+
     page = pageNum;
     $.ajax({
         type: "get",
-        url: "${pageContext.request.contextPath}/host_questionList?pageNum=" + pageNum,
+        url: "${pageContext.request.contextPath}/space_questionList/" + qSno + "?pageNum=" + pageNum,
+	     
         dataType: "json",
         success: function(result) {
         	  if (result.questionList.length == 0) {

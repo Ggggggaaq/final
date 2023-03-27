@@ -32,12 +32,22 @@ public interface MemberHostBoardMapper {
 	List<SelectMember> SelectQuestionList(Map<String, Object> map);
 	int deleteQuestion(int qNo);
 	int selectQuestionCount(String qMid);
-
+	
+	
+	//Space Review
+	int selectSpaceReviewCount(int rSno);
+	List<SelectMember> selectSpaceReviewList(Map<String, Object> map);
+	
+	//Space Question
+	int selectSpaceQuestionCount(int qSno);
+	List<SelectMember> selectSpaceQuestionList(Map<String, Object> map);
+	
+	
 	//Host Reserve
 	int selectHostReserveCount(String hId);
 	//int selectHostReserve(String hId);
 	List<SelectMember> selectHostReserveList(Map<String, Object> map);
-
+	
 	//Host Review
 	int selectHostReviewCount();
 	List<SelectMember> selectHostReviewList(Map<String, Object> map);

@@ -185,4 +185,28 @@ public class MemberHostBoardDAOImpl implements MemberHostBoardDAO {
 		return sqlSession.getMapper(MemberHostBoardMapper.class).selectReserveListmId(mId);
 	}
 
+	@Override
+	public int selectSpaceReviewCount(int rSno) {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(MemberHostBoardMapper.class).selectSpaceReviewCount(rSno);
+	}
+
+	@Override
+	public List<SelectMember> selectSpaceReviewList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(MemberHostBoardMapper.class).selectSpaceReviewList(map);
+	}
+
+	@Override
+	public int selectSpaceQuestionCount(int qSno) {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(MemberHostBoardMapper.class).selectSpaceQuestionCount(qSno);
+	}
+
+	@Override
+	public List<SelectMember> selectSpaceQuestionList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(MemberHostBoardMapper.class).selectSpaceQuestionList(map);
+	}
+
 }
