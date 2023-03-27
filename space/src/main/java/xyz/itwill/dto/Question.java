@@ -14,7 +14,6 @@ public class Question {
 	private Date qDate;		//질의 작성날짜
 	private int qMstatus;		//질의 대상 상태(0:호스트, 1:사용자)
 	private String qMid;		//사용자 아이디
-	private String qHid;		//호스트 아이디
 	private int qSno;			//공간 번호
 	private int qCount;		//질의 수
 }
