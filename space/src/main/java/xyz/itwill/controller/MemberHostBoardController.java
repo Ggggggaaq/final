@@ -44,34 +44,41 @@ public class MemberHostBoardController {
 	private final MemberHostBoardService memberHostBoardService;
 	private final MemberHostBoardDAO memberHostBoardDao;
 	
+			
+	
+			//Member Review Controller
+			
 		
-		//member write,update,delete 처리.
+	     	//member_review_write 페이지 이동.
 			@RequestMapping(value="/member_review_write", method = RequestMethod.GET)
-			public String find2(HttpSession session,Model model)  {
+			public String reviewWrite(HttpSession session,Model model)  {
 				Member loginMember = (Member)session.getAttribute("loginMember");
 				
 				List<Pay> reserveList=memberHostBoardDao.selectReserveListmId(loginMember.getMId());	 //회원 아이디를 통해 예약리스트 출력.
-				model.addAttribute("mId",loginMember.getMId());
-			    model.addAttribute("reserveList", reserveList); // list 추가
+				model.addAttribute("mId",loginMember.getMId()); // 회원 아이디 추가.
+			    model.addAttribute("reserveList", reserveList); // 구매한 내역list 추가
 			    
 				return "member/member_review_write";
 			}
 		
-		//입력값 작성 후 게시글 등록 클릭했을경우 삽입 후 notice페이지로 이동
+		    //Review 입력값 작성 후 게시글 등록 클릭했을경우 삽입 후 member_review페이지로 이동
 			@RequestMapping(value = "member_review_write", method = RequestMethod.POST)
-			public String noticewrite(@ModelAttribute Review review) {
+			public String reviewWrite(@ModelAttribute Review review) {
 				
 				
 				memberHostBoardService.addReview(review);
 				return "redirect:/member_review";
 			}
+
+			//rNo값을 전달받아 member_review_modify페이지로 이동처리.
 			
 			@RequestMapping(value ="member_review_modify/{rNo}", method = RequestMethod.GET)
 			public String reviewModify(@PathVariable int rNo, Model model) throws BoardNotFoundException {
-				model.addAttribute("review", memberHostBoardService.getReview(rNo));
+				model.addAttribute("review", memberHostBoardService.getReview(rNo)); //rNo값을 통해 현재 review테이블에 저장된 값 Model객체에 전달.
 				return "member/member_review_modify";
 			}
 			
+			//Form태그를 통해 전달받은 값들을 review 객체에 update처리.
 			@RequestMapping(value ="member_review_modify", method = RequestMethod.POST)
 			public String reviewModify(@RequestParam int rNo, @ModelAttribute Review modifiedReview) throws BoardNotFoundException {
 				Review review= memberHostBoardService.getReview(rNo);
@@ -82,25 +89,17 @@ public class MemberHostBoardController {
 			    return "redirect:/member_review";
 			}
 			
-		
-
-			//입력값 작성 후 게시글 등록 클릭했을경우 삽입 후 notice페이지로 이동
-			@RequestMapping(value = "member_qna_write", method = RequestMethod.POST)
-			public String qnawrite(@ModelAttribute Question question) {
-				memberHostBoardService.addQuestion(question);
-				return "redirect:/member_qna";
-			}
-	
-			
 			//선택된 게시글을 전달받아 해당 게시글을 삭제 처리
 			@RequestMapping(value ="member_review_delete/{rNo}" , method = RequestMethod.DELETE)
 			@ResponseBody
-			public String faqremove(@PathVariable int rNo) throws BoardNotFoundException {
+			public String reviewRemove(@PathVariable int rNo) throws BoardNotFoundException {
 				memberHostBoardService.removeReview(rNo);
 				return "success";
 			}
 			
-			//notice 전체 리스트 출력 시 페이징 처리를 위해 Json형식의 text로 Map객체 전달
+			
+
+			//Review 전체 리스트 출력 시 페이징 처리를 위해 Json형식의 text로 Map객체 전달
 					
 					@RequestMapping(value = "member_reviewList", method = RequestMethod.GET)
 					@ResponseBody
@@ -125,7 +124,58 @@ public class MemberHostBoardController {
 					}	
 					
 				
-					
+			
+			
+			
+			///////////////////////////////////////////////////////////////////////////////////////////////////
+			
+			//Member Q&A Controller
+			
+
+			//게시글 등록 클릭했을경우 member_qna_write페이지로 이동
+			@RequestMapping(value = "member_qna_write", method = RequestMethod.GET)
+			public String qnawrite() {
+
+				return "member/member_qna_write";
+			}
+			
+			//입력값 작성 후 게시글 등록 클릭했을경우 삽입 후 member_qna페이지로 이동
+			@RequestMapping(value = "member_qna_write", method = RequestMethod.POST)
+			public String qnawrite(@ModelAttribute Question question) {
+				memberHostBoardService.addQuestion(question);
+				return "redirect:/member_qna";
+			}
+			
+			//Question 전체 리스트 출력 시 페이징 처리를 위해 Json형식의 text로 Map객체 전달
+			
+			@RequestMapping(value = "member_questionList", method = RequestMethod.GET)
+			@ResponseBody
+			public Map<String, Object> questionList(@RequestParam(defaultValue = "1") int pageNum,HttpSession session) {
+				Member loginMember=(Member)session.getAttribute("loginMember");
+				int totalQuestion=memberHostBoardService.getQuestionCount(loginMember.getMId());
+				int pageSize=6;
+				int blockSize=5;
+				
+				Pager pager=new Pager(pageNum, totalQuestion, pageSize, blockSize);
+				
+				Map<String, Object> pageMap=new HashMap<String, Object>();
+				pageMap.put("startRow", pager.getStartRow());
+				pageMap.put("endRow", pager.getEndRow());
+				
+				List<SelectMember> questionList=memberHostBoardDao.SelectQuestionList(pageMap);
+				
+				Map<String, Object> resultMap=new HashMap<String, Object>();
+				resultMap.put("questionList", questionList);
+				resultMap.put("pager", pager);
+				return resultMap;
+			}	
+			
+			
+			
+			///////////////////////////////////////////////////////////////////////////////////////////////////
+			
+		
+			//Member Reserve Controller		
 					
 					//notice 전체 리스트 출력 시 페이징 처리를 위해 Json형식의 text로 Map객체 전달
 					
@@ -150,6 +200,13 @@ public class MemberHostBoardController {
 						resultMap.put("pager", pager);
 						return resultMap;
 					}	
+					
+				///////////////////////////////////////////////////////////////////////////////////////////////////
+							
+				
+					
+				//Space Controller		
+					
 					
 					//space 전체 리스트 출력 시 페이징 처리를 위해 Json형식의 text로 Map객체 전달
 					@RequestMapping(value = "member_spaceList", method = RequestMethod.POST)
@@ -199,37 +256,17 @@ public class MemberHostBoardController {
 						
 					}
 					
-					
-					//notice 전체 리스트 출력 시 페이징 처리를 위해 Json형식의 text로 Map객체 전달
-					
-					@RequestMapping(value = "member_questionList", method = RequestMethod.GET)
-					@ResponseBody
-					public Map<String, Object> QuestionList(@RequestParam(defaultValue = "1") int pageNum,HttpSession session) {
-						Member loginMember=(Member)session.getAttribute("loginMember");
-						int totalQuestion=memberHostBoardService.getQuestionCount(loginMember.getMId());
-						int pageSize=6;
-						int blockSize=5;
-						
-						Pager pager=new Pager(pageNum, totalQuestion, pageSize, blockSize);
-						
-						Map<String, Object> pageMap=new HashMap<String, Object>();
-						pageMap.put("startRow", pager.getStartRow());
-						pageMap.put("endRow", pager.getEndRow());
-						
-						List<SelectMember> questionList=memberHostBoardDao.SelectQuestionList(pageMap);
-						
-						Map<String, Object> resultMap=new HashMap<String, Object>();
-						resultMap.put("questionList", questionList);
-						resultMap.put("pager", pager);
-						return resultMap;
-					}	
+					///////////////////////////////////////////////////////////////////////////////////////////////////
 					
 					
-					//notice 전체 리스트 출력 시 페이징 처리를 위해 Json형식의 text로 Map객체 전달
+					//Host Review Controller
+					
+					
+					//host Review 전체 리스트 출력 시 페이징 처리를 위해 Json형식의 text로 Map객체 전달
 					
 					@RequestMapping(value = "host_reviewList", method = RequestMethod.GET)
 					@ResponseBody
-					public Map<String, Object> ReviewList2(@RequestParam(defaultValue = "1") int pageNum) {
+					public Map<String, Object> hostReviewList(@RequestParam(defaultValue = "1") int pageNum) {
 
 						int totalQuestion=memberHostBoardDao.selectHostReviewCount();
 						int pageSize=6;
@@ -251,11 +288,15 @@ public class MemberHostBoardController {
 					}	
 					
 					
-					//notice 전체 리스트 출력 시 페이징 처리를 위해 Json형식의 text로 Map객체 전달
+
+					//Host  Reserve Controller
+					
+					
+					//Host  Reserve 전체 리스트 출력 시 페이징 처리를 위해 Json형식의 text로 Map객체 전달
 					
 					@RequestMapping(value = "host_reserveList", method = RequestMethod.GET)
 					@ResponseBody
-					public Map<String, Object> ReserveList2(@RequestParam(defaultValue = "1") int pageNum,HttpSession session) {
+					public Map<String, Object> hostReserveList(@RequestParam(defaultValue = "1") int pageNum,HttpSession session) {
 						Host loginHost=(Host)session.getAttribute("loginHost");
 						int totalQuestion=memberHostBoardDao.selectHostReserveCount(loginHost.getHId());
 						int pageSize=6;
@@ -276,12 +317,15 @@ public class MemberHostBoardController {
 						return resultMap;
 					}	
 					
+
+					//Host Question Controller
 					
-					//notice 전체 리스트 출력 시 페이징 처리를 위해 Json형식의 text로 Map객체 전달
+					
+					//Question 전체 리스트 출력 시 페이징 처리를 위해 Json형식의 text로 Map객체 전달
 					
 					@RequestMapping(value = "host_questionList", method = RequestMethod.GET)
 					@ResponseBody
-					public Map<String, Object> QuestionList2(@RequestParam(defaultValue = "1") int pageNum,HttpSession session) {
+					public Map<String, Object> questionList2(@RequestParam(defaultValue = "1") int pageNum,HttpSession session) {
 						Host loginHost=(Host)session.getAttribute("loginHost");
 						int totalQuestion=memberHostBoardDao.selectHostQuestionCount(loginHost.getHId());
 						int pageSize=6;
@@ -301,6 +345,9 @@ public class MemberHostBoardController {
 						resultMap.put("pager", pager);
 						return resultMap;
 					}	
+					
+					
+					
 					
 				
 }
