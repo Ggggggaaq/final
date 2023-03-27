@@ -22,6 +22,7 @@ public interface MemberHostBoardService {
 	
 	//Member Question
 	int getQuestionCount(String qMid) ;
+	void removeQuestion(int qNo) throws BoardNotFoundException; 
 	void addQuestion(Question question);
 	void modifyQuestion(Question question) ;
 	

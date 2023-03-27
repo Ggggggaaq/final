@@ -94,7 +94,7 @@
 		
 		
 			
-	<button onclick="location.href='${pageContext.request.contextPath}/member_qna_write'" type="button" id="writeBtn" class="btn btn-primary btn-sm">게시글등록</button>
+	<button onclick="location.href='${pageContext.request.contextPath}/member_question_write'" type="button" id="writeBtn" class="btn btn-primary btn-sm">게시글등록</button>
 	
 	</body>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -144,6 +144,7 @@
 
 	                html += "      <h5 id='pRename'>Q&A 제목 : " + this.questionList[0].qtitle + "</h5>";
 	                html += "      <h5 id='pRedate'>Q&A 내용: " + this.questionList[0].qcontent  + "</h5>";
+	                html += "<button type='button' onclick='location.href=\"${pageContext.request.contextPath}/member_question_modify/" + this.questionList[0].qno + "\";' id='modifyBtn' class='btn btn-primary btn-sm' style='margin-right : 20px;'>글 변경</button>";
 	                html +="<button type='button' onclick='remove("+this.questionList[0].qno+");' id='removeBtn' class='btn btn-primary btn-sm'>글 삭제</button>";
 	                html += "    </div>";
 	                html += "  </div>";
@@ -189,7 +190,7 @@
 		if(confirm("게시글을 삭제 하시겠습니까?")) {
 			$.ajax({
 				type: "delete",
-				url: "${pageContext.request.contextPath}/member_qna_delete/"+qNo,
+				url: "${pageContext.request.contextPath}/member_question_delete/"+qNo,
 				dataType: "text",
 				success: function(result) {
 					if(result=="success") {

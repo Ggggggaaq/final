@@ -39,7 +39,7 @@ a {
 
 
 
-<body class="wd-75 row d-flex justify-content-center">
+<body class="wd-75 row d-flex justify-content-center" >
 	
 	
 <form class="mb-5">

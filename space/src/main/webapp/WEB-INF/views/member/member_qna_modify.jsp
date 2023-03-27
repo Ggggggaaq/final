@@ -34,7 +34,7 @@ td {
 			<tr>
 				<th>상품 번호</th>
 				<td>
-					<input type="text" id="qSno">
+					<input type="text" id="qSno" value="${question.QSno}">
 					
 				</td>
 			</tr>
@@ -42,32 +42,29 @@ td {
 			<tr>
 				<th>제목</th>
 				<td>
-					<input type="text" name="qTitle" id="qTitle" style="width: 800px;">
+					<input type="text" name="qTitle" id="qTitle" style="width: 800px;" value="${question.QTitle}">
 				</td>
 			</tr>
 			<tr>
 				<th>내용</th>
 				<td>
-					<textarea rows="5" cols="91" name="qContent" id="qContent"></textarea>
+					<textarea rows="5" cols="91" name="qContent" id="qContent" >${question.QContent}</textarea>
 				</td>
 			</tr>
 			
-						
-			
-			
 		</table>	
-			 <input type="hidden" name="qMid" value="${mId }">
+			 <input type="hidden" name="qNo" value="${question.QNo }">
 	</form>
 	<div style="text-align: center;">
 	<br>
-		<p><button onclick="questionAdd();" type="button" id="writeBtn" class="btn btn-primary btn-sm">게시글등록</button>
+		<p><button onclick="questionModify();" type="button" id="writeBtn" class="btn btn-primary btn-sm">게시글등록</button>
 		<button type="button" id="resetBtn" class="btn btn-primary btn-sm"  onclick="reset();">다시작성</button></p>
 	</div>
 	</div>
 	</div>
 </body>
 <script language="JavaScript">
-function questionAdd() {
+function questionModify() {
 	if ( qTitle.value == "" ) {
 		alert("제목을 입력해주세요.");
 		qTitle.focus();
@@ -79,7 +76,7 @@ function questionAdd() {
 		return;
 	}
 	
-	f.action = "<c:url value="/member_qustion_write"/>";
+	f.action = "<c:url value="/member_question_modify"/>";
 	f.submit();
 }
 	function reset() {

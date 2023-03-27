@@ -27,6 +27,7 @@ public interface MemberHostBoardMapper {
 	int selectReserveCount(String pMid);
 	
 	//Member Question
+	Question selectQuestion(int qNo);
 	int insertQuestion(Question question);
 	int updateQuestion(Question question);
 	List<SelectMember> SelectQuestionList(Map<String, Object> map);

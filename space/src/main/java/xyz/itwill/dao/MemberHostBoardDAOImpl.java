@@ -209,4 +209,10 @@ public class MemberHostBoardDAOImpl implements MemberHostBoardDAO {
 		return sqlSession.getMapper(MemberHostBoardMapper.class).selectSpaceQuestionList(map);
 	}
 
+	@Override
+	public Question selectQuestion(int qNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(MemberHostBoardMapper.class).selectQuestion(qNo);
+	}
+
 }

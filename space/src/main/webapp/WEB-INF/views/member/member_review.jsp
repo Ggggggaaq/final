@@ -211,10 +211,6 @@
 		}
 	}	
 	
-	function modify(rNo) {
-		var rNo=rNo;
-	
-	}
 	
 	
 	</script>	

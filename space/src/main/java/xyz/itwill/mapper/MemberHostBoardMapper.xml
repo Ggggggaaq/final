@@ -147,6 +147,12 @@
 	</delete>
 	
 	
+	<!-- 글번호를 전달받아 Review 게시글 검색 -->		
+	<select id="selectQuestion" resultType="Question">
+		select * from Question where q_no=#{qNo}
+	</select>
+	
+	
 	<!-- Question 게시글 총개수 -->	
 	<select id="selectQuestionCount" resultType="int">
 		select count(*) from Question where q_mid=#{qMid}

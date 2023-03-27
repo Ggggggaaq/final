@@ -133,7 +133,7 @@ public class MemberHostBoardController {
 			
 
 			//게시글 등록 클릭했을경우 member_qna_write페이지로 이동
-			@RequestMapping(value = "member_qna_write", method = RequestMethod.GET)
+			@RequestMapping(value = "member_question_write", method = RequestMethod.GET)
 			public String qnawrite(HttpSession session,Model model) {
 				Member loginMember = (Member)session.getAttribute("loginMember");
 				model.addAttribute("mId", loginMember.getMId());
@@ -141,11 +141,39 @@ public class MemberHostBoardController {
 			}
 			
 			//입력값 작성 후 게시글 등록 클릭했을경우 삽입 후 member_qna페이지로 이동
-			@RequestMapping(value = "member_qna_write", method = RequestMethod.POST)
+			@RequestMapping(value = "member_question_write", method = RequestMethod.POST)
 			public String qnawrite(@ModelAttribute Question question) {
 				memberHostBoardService.addQuestion(question);
 				return "redirect:/member_qna";
 			}
+			
+			//rNo값을 전달받아 member_question_modify페이지로 이동처리.
+			
+			@RequestMapping(value ="member_question_modify/{qNo}", method = RequestMethod.GET)
+			public String questionModify(@PathVariable int qNo, Model model) throws BoardNotFoundException {
+				model.addAttribute("question", memberHostBoardDao.selectQuestion(qNo)); //rNo값을 통해 현재 review테이블에 저장된 값 Model객체에 전달.
+				return "member/member_qna_modify";
+			}
+			
+			//Form태그를 통해 전달받은 값들을 review 객체에 update처리.
+			@RequestMapping(value ="member_question_modify", method = RequestMethod.POST)
+			public String questionModify(@RequestParam int qNo, @ModelAttribute Question modifiedQuestion) throws BoardNotFoundException {
+				Question question= memberHostBoardDao.selectQuestion(qNo);
+				question.setQContent(modifiedQuestion.getQContent());
+				question.setQTitle(modifiedQuestion.getQTitle());
+			    memberHostBoardService.modifyQuestion(question);	
+			    return "redirect:/member_qna";
+			}
+			
+
+			//선택된 게시글을 전달받아 해당 게시글을 삭제 처리
+			@RequestMapping(value ="member_question_delete/{qNo}" , method = RequestMethod.DELETE)
+			@ResponseBody
+			public String questionRemove(@PathVariable int qNo) throws BoardNotFoundException {
+				memberHostBoardService.removeQuestion(qNo);
+				return "success";
+			}
+			
 			
 			//Question 전체 리스트 출력 시 페이징 처리를 위해 Json형식의 text로 Map객체 전달
 			

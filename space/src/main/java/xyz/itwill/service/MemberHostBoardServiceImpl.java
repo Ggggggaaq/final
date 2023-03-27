@@ -43,6 +43,12 @@ public class MemberHostBoardServiceImpl implements MemberHostBoardService {
 		reviewDAO.deleteReview(rNo);
 		
 	}
+	
+	@Override
+	public void removeQuestion(int qNo) throws BoardNotFoundException {
+		reviewDAO.deleteQuestion(qNo);
+		
+	}
 
 
 	@Override

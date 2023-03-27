@@ -29,6 +29,7 @@ public interface MemberHostBoardDAO {
 
 	
 	//Member Question
+	Question selectQuestion(int qNo);
 	List<SelectMember> SelectQuestionList(Map<String, Object> map);
 	int deleteQuestion(int qNo);
 	int selectQuestionCount(String qMid);
