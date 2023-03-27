@@ -79,7 +79,7 @@
 		<h1>예약 내역 리스트</h1>
 
 	
-			
+		<div class="wd-75 row d-flex justify-content-center" style="margin: 0 auto;">	
 		<div class="check-group">
 			<div class="check">
 				<select class="form-control">
@@ -100,7 +100,7 @@
 	</div>
 	<div id="noticetable" class="w-100" style="margin: 0 auto;"></div>
 		<div id="pageNumDiv"></div>
-		
+	</div>	
 	</body>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 	
