@@ -46,7 +46,7 @@ td {
 				</td>
 			</tr>
 			
-			 <input type="hidden" name="qMid" value="${mId }">
+		
 			<tr>
 				<th>제목</th>
 				<td>
@@ -64,6 +64,7 @@ td {
 			
 			
 		</table>	
+			 <input type="hidden" name="qMid" value="${mId }">
 	</form>
 	<div style="text-align: center;">
 	<br>

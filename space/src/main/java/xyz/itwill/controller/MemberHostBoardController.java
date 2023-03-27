@@ -134,8 +134,9 @@ public class MemberHostBoardController {
 
 			//게시글 등록 클릭했을경우 member_qna_write페이지로 이동
 			@RequestMapping(value = "member_qna_write", method = RequestMethod.GET)
-			public String qnawrite() {
-
+			public String qnawrite(HttpSession session,Model model) {
+				Member loginMember = (Member)session.getAttribute("loginMember");
+				model.addAttribute("mId", loginMember.getMId());
 				return "member/member_qna_write";
 			}
 			
