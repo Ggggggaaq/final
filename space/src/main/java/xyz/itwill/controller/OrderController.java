@@ -36,7 +36,7 @@ public class OrderController {
 	private final PayDAO payDao;
 	
 	//주문 페이지 요청 처리 메소드
-	@RequestMapping(value = "/order")
+	@RequestMapping(value = "/order", method = RequestMethod.POST)
 	public String orderDisplay(@RequestParam(defaultValue = "2023-01-02")String pRedate,@RequestParam(defaultValue = "3") int pRepeople,@RequestParam(defaultValue = "1")int sNo, Model model) {
 		
 		//상세에서 pRedate,pRepeople,sNo 넘겨받아 Model 객체에 저장

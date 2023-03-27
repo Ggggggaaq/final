@@ -6,10 +6,14 @@
 <html>
 
 <head>
+<meta charset="UTF-8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-<meta charset="UTF-8">
+<script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+<script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="//code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
 <style type="text/css">
 body {
 			margin: 0;
@@ -72,8 +76,8 @@ body {
 	
 
 </style>
-<meta charset="UTF-8">
 </head>
+
 <body>
 	<div id="btn-wrapper">
 		<button class="btn" onclick="scrollToSection('section1')">공간소개</button>
@@ -244,34 +248,38 @@ body {
 						
 						<!--end col-->
 	
-						<div class="col-lg-4 col-md-5 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
+						<div class="col-lg-4 col-md-5 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">	
+						<div>
+												
 							<div class="box1" style="background-color: white;">
 								<div class="sidebar sticky-sidebar">
+								
 									<div class="widget mb-4 pb-2">
-										<ul class="list-unstyled mb-0 catagory">
-											<li>
+										
 												<span>예약날짜</span>
+												<label for="pRedate"></label>
+												<input type="text" id="pRedate" name="pRedate" value="">
+												</div>
 												<!-- <span class="float-right">${spaces.SPdate }</span> -->
-												<span class="float-right">${param.pRedate}</span>
-											</li>
-											<li>
+												<!-- datapicker를 사용할 input 요소 -->
+											
 												<div>
 													 <div>
 														<label for="quantity" style="display: inline-block;">총 예약인원</label>
 	 													 	<div class="personcontainer d-flex align-items-center">
-	  													 		<div id="minus" class="button"><i class="bi bi-file-minus"></i></div>
+	  													 		<div id="minus" class="button" style="margin-left: 110px;"><i class="bi bi-file-minus"></i></div>
 	   													 			<input type="number" id="quantity" name="pRepeople" value="1" min="1" max="${spaces.SPerson}" required>
 	   																<div id="plus" class="button"><i class="bi bi-plus-square" style="margin-left: 10px;"></i></div>
 	  														</div>
 													</div>	
 	              								</div>
-											</li>	
-											<li>
+											
 												<div>
 													<button type="submit" onclick="location.href='${pageContext.request.contextPath}/member_heart?sNo='+${space.sNo }">찜</button>
+													<br>
+													<button onclick="goToOrderPage();">예약신청하기</button>
 												</div>
-											</li>		
-										</ul>
+										
 									</div>
 								</div>
 							</div>
@@ -282,32 +290,10 @@ body {
 			</section>
 		</div>
 	</div>
-	
-	<div>
-		<section class="section">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-4 col-md-5 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
-						<div class="sidebar sticky-sidebar">
-							<div class="widget mb-4 pb-2">
-								<div class="box1" style="background-color: white;">
-									<div class="p-4 mt-4 rounded shadow" style="background-color: #704DE4">
-										<ul class="list-unstyled mb-0 catagory">
-											<li><button onclick="goToOrderPage();">예약신청하기</button></li>
-										</ul>
-									</div>
-									
-								</div>
-							</div>
-								
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-	</div>
+
+
 </form>			
-	
+						
 <div id="container">
   <!-- 내용을 출력할 컨테이너 -->
 </div>
@@ -319,26 +305,7 @@ function scrollToSection(id) {
 	const sectionTop = section.offsetTop; // 섹션 요소의 위쪽에서의 거리(offset)를 가져옴
 	window.scrollTo({ top: sectionTop, behavior: 'smooth' }); // 스크롤을 해당 섹션으로 이동
 }
-
-		
-		/*
-		// 기본인원 1명 에서   +, - 버튼이나 직접 입력하여 인원수를 결정하는데 6명 이상이 되면
-		// 1명당 5000원 이 부과됩니다. (단, 호스트가 설정한 인원수를 넘을 수 없습니다.)
-		 var quantityInput = document.getElementById('quantity');
-        var totalPriceInput = document.getElementById('total-price');
-        var pricePerUnit = ${product.price};
-        var quantityThreshold = 6;
-        var additionalPricePerUnit = 5000;
-
-        quantityInput.addEventListener('input', function() {
-            var quantity = parseInt(quantityInput.value);
-            if (quantity >= quantityThreshold) {
-                totalPriceInput.value = (pricePerUnit + (quantity - 1) * additionalPricePerUnit) * quantity;
-            } else {
-                totalPriceInput.value = pricePerUnit * quantity;
-            }
-        });
-		*/
+	
         
       //네이버 지도
     	
@@ -375,84 +342,60 @@ function scrollToSection(id) {
     	});
 
     	infowindow.open(map, marker);
+    	  var quantity = $("#quantity");
     	
-    	
-    	//예약하기
-    	function goToOrderPage() {
-    		f.action = "<c:url value="/order"/>";
-    		f.submit();
-			//var url = "${pageContext.request.contextPath}/order?sNo="+sNo;
-			//window.location.href = url;
-		}
-    	
+	    	//예약하기
+	    	function goToOrderPage() {
+	    		//sNo값 히든태그로 저장 후 폼태그에 전달.
+	    		 var urlParams = new URLSearchParams(window.location.search);
+	    		 var sNo = urlParams.get('sNo');
+	    		 
+	    		 var input = document.createElement('input');
+	    		  input.type = 'hidden';
+	    		  input.name = 'sNo';
+	    		  input.value = sNo;
+	    		  document.getElementById('form1').appendChild(input);
+	    		//pRepeople값 히든태그로 저장 후 폼태그에 전달.  
+	    		
+			
+	    		f.action = "<c:url value="/order"/>";
+	    		f.submit();
+				//var url = "${pageContext.request.contextPath}/order?sNo="+sNo;
+				//window.location.href = url;
+			}
+	    	
     	$(document).ready(function() {
-			  
-    		  //예약인원 버튼과 예약신청하기 버튼을 오른쪽 상단에 배치하기위한 내용
-    		  
-    		  // form1의 box1 내용을 복사하여 container에 추가
-    		  var content1 = $('#form1 .box1').clone();
+    		
+    		
+    		 $("#pRedate").datepicker({
+    		        showOtherMonths: true,
+    		        selectOtherMonths: true,
+    		        changeMonth: true,
+    		        changeYear: true,
+    		        showButtonPanel: true,
+    		        dateFormat: 'yy-mm-dd'
+    		    });
+ 
+    		 
     		  content1.find('#minus').on('click', function () {
     			  var $quantity = $(this).parent().find('#quantity');
     			  if ($quantity.val() > 1) {
     			    $quantity.val(parseInt($quantity.val()) - 1);
+    			    $('#quantity').val($quantity.val());
     			  }
     			});
     			content1.find('#plus').on('click', function () {
     			  var $quantity = $(this).parent().find('#quantity');
     			  if ($quantity.val() < parseInt($quantity.attr('max'))) {
     			    $quantity.val(parseInt($quantity.val()) + 1);
+    			    $('#quantity').val($quantity.val());
     			  }
     			});
     		  $('#container').empty().append(content1);
-
-    		  // form2의 box1 내용을 복사하여 container에 추가
-    		  var content2 = $('#form2 .box1').clone();
-    		  $('#container').append(content2);
-
+    		  
     		  // container 내용을 오른쪽 끝에서 위아래로 출력
     		  $('#container').css({position: 'absolute', right: '100px', top: '300px'});
 				
-    		  // 기존 content 숨기기
-    		  $('#form1 .box1, #form2 .box1').css('display', 'none');
-    		  
-    		  var input = $("#quantity");
-    		  var minus = $("#minus");
-    		  var plus = $("#plus");
-
-    		  minus.click(function() {
-    		    if (input.val() > input.attr("min")) {
-    		      input.val(parseInt(input.val()) - 1);
-    		    }
-    		  });
-
-    		  plus.click(function() {
-    		    if (input.val() < input.attr("max")) {
-    		      input.val(parseInt(input.val()) + 1);
-    		    }
-    		  });
-    		    
-    		  
-    		// 슬라이드 쇼 구현
-			  $('#slider ul').bxSlider({
-			    auto: true, // 자동으로 슬라이드 넘김
-			    autoControls: true, // 시작 및 중지 버튼 표시
-			    stopAutoOnClick: true, // 사용자가 슬라이드를 클릭할 때 자동 슬라이드 정지
-			    pager: false, // 페이지 표시 기능 미사용
-			    slideWidth: 600 // 슬라이드 너비 설정
-			  });
-    		  
-    		//슬라이드 쇼 구현 2
-			  $("#slideshow > li:gt(0)").hide();
-			    setInterval(function() {
-			      $('#slideshow > li:first')
-			        .fadeOut(1000)
-			        .next()
-			        .fadeIn(1000)
-			        .end()
-			        .appendTo('#slideshow');
-			    }, 3000);
-    		
-    	 		 
     		
     		
     		
@@ -466,7 +409,7 @@ function scrollToSection(id) {
 	
 	function noticeListDisplay(pageNum) {
 		 var urlParams = new URLSearchParams(window.location.search);
-		    var rSno = urlParams.get('sno');
+		    var rSno = urlParams.get('sNo');
 
 	    page = pageNum;
 		    $.ajax({
@@ -553,7 +496,7 @@ noticeListDisplay2(page);
 
 function noticeListDisplay2(pageNum) {
 	 var urlParams = new URLSearchParams(window.location.search);
-	    var qSno = urlParams.get('sno');
+	    var qSno = urlParams.get('sNo');
 
     page = pageNum;
     $.ajax({
@@ -633,6 +576,9 @@ function pageNumDisplay2(pager) {
 	}
 	$("#pageNumDiv2").html(html);
 }
+
+
+	
 	
 </script>
 </body>
