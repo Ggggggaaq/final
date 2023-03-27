@@ -312,7 +312,7 @@ function noticeListDisplay(pageNum) {
                     count = 0;
                 }
                 html += "<div class='col-md-4'>";
-                html += " <a href='${pageContext.request.contextPath}/spaces?sno=" + this.sno +" ' class='card-link'>";
+                html += " <a href='${pageContext.request.contextPath}/spaces?sNo=" + this.sno +" ' class='card-link'>";
                 html += "  <div class='card mb-4'>";
                 html+=	"  <div class='card-header'><img class='img-fluid w-75' src='${pageContext.request.contextPath}/images/img1/"+this.simg+"'></div>";
                 html += "    <div class='card-body'>";
