@@ -320,4 +320,11 @@
 		</select>
 	
 		
+	<!-- Question 게시글 총개수 -->	
+	<select id="selectStarAverage" resultType="int">
+		SELECT AVG(r_star) AS averagestar FROM review
+		JOIN space ON r_sno=s_no
+		WHERE s_no=${sNo}
+	</select>
+	
 </mapper>

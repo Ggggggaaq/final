@@ -243,6 +243,7 @@ public class MemberHostBoardController {
 					public Map<String, Object> SpaceList(@RequestParam(defaultValue = "1") int pageNum,@RequestParam Map<String, Object> params) {	
 						
 						
+						
 						//필터를 통해 전달받은 모든 parameter를 params Map객체에 저장.
 						int totalQuestion=memberHostBoardDao.selectSpaceCount(params);
 						int pageSize=6;
@@ -254,11 +255,13 @@ public class MemberHostBoardController {
 						
 						if(totalQuestion != 0) {
 							//sNo를 받아와서 출력하기 위한 객체 생성.
-							List<Space> sNo=memberHostBoardDao.selectSpaceSno(params);
+							List<Space> spaceList2=memberHostBoardDao.selectSpaceSno(params);
 							List<Integer> sNoList = new ArrayList<>();
 							
-							for (Space space : sNo) {
+							for (Space space : spaceList2) {
+								int averagestar=memberHostBoardDao.selectStarAverage(space.getSNo());
 						        sNoList.add(space.getSNo());
+						        sNoList.add(averagestar);
 						    }
 							//SQL 매퍼에 적용하기 위해 pageMap객체 생성 후 입력값 전달.
 							Map<String, Object> pageMap=new HashMap<String, Object>();
@@ -266,6 +269,7 @@ public class MemberHostBoardController {
 							pageMap.put("endRow", pager.getEndRow());
 							pageMap.put("sNoList", sNoList);
 							pageMap.put("sort", (String)params.get("sort"));
+							
 							
 							List<Space> spaceList=memberHostBoardDao.selectSpaceList(pageMap);
 							

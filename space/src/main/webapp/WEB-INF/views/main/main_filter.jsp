@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+    
 <!DOCTYPE html>
 <html>
 <head >
@@ -45,6 +47,7 @@ a {
 <form class="mb-5">
 
 <div class="w-75 d-flex justify-content-center" style="margin: 0 auto;"> 
+
 
 <!-- 지역 체크 박스 -->
  <div class="w-25">
@@ -100,7 +103,7 @@ a {
 <!-- 필터 박스 -->
 <div class="w-25">
 	<select class="form-control btn btn-outline-primary w-75" style="text-align: center; display: none; "  id="checkselect">
-		<option value="1">검색 필터</option>
+		<option value="1">검색 필터 ${sNoList}</option>
 			<option value="0">낮은 가격순</option>
 			<option value="1">높은 가격순</option>
 			<option value="2">베스트 공간순</option>
@@ -316,7 +319,6 @@ function noticeListDisplay(pageNum) {
                 html += "  <div class='card mb-4'>";
                 html+=	"  <div class='card-header'><img class='img-fluid w-75' src='${pageContext.request.contextPath}/images/img1/"+this.simg+"'></div>";
                 html += "    <div class='card-body'>";
-                
 
                 html += "      <h5 id='pSno'> " + this.sname + "</h5>";
                 html += "      <p id='pRename'><i class='bi bi-signpost-fill'></i> " + this.smap + "</p>";

@@ -61,6 +61,7 @@ public interface MemberHostBoardDAO {
 	List<SelectMember> selectHostQuestionList(Map<String, Object> map);
 	
 	// Filter 
+	int selectStarAverage(int sNo);
 	List<Space> selectSpaceSno(Map<String, Object> params);
 	int selectSpaceCount(Map<String, Object> params);
 	List<Space> selectSpaceList(Map<String, Object> map);

@@ -215,4 +215,10 @@ public class MemberHostBoardDAOImpl implements MemberHostBoardDAO {
 		return sqlSession.getMapper(MemberHostBoardMapper.class).selectQuestion(qNo);
 	}
 
+	@Override
+	public int selectStarAverage(int sNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(MemberHostBoardMapper.class).selectStarAverage(sNo);
+	}
+
 }
