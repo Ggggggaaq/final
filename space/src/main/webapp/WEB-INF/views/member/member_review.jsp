@@ -145,7 +145,7 @@
 	                 html += "    </div>";
 	                html += "    <div class='card-body'>";
 	                
-	                html += "      <p id='pStar' style='color:gold; font-weight: bold;'> 별점 : ";
+	                html += "      <p id='pStar' style='color:gold; font-weight: bold;'> 평점 : ";
 	                for (var i = 0; i < this.reviewList[0].rstar; i++) {
 	                  html += "★";
 	                }

@@ -322,9 +322,19 @@ function noticeListDisplay(pageNum) {
                 html +=	"  <div class='card-header'><img class='img-fluid w-75' src='${pageContext.request.contextPath}/images/img1/"+this.simg+"'></div>";
                 html += "    <div class='card-body'>";
  
-             
+                html += "<p id='pStar' style='color:gold; font-weight: bold;'> 평점 : ";
 
-                html += "      <h5 id='pSno'> 평점 : " + sNoList[sNoList.indexOf(this.sno)+1]  + "</h5>";
+                var rating = sNoList[sNoList.indexOf(this.sno)+1];
+                for (var i = 0; i < 5 ; i++) {
+                	  if (i < Math.floor(rating)) {
+                	    html += "★";
+                	  } else if (i == Math.floor(rating) && rating % 1 !== 0) {
+                	    html += "☆";
+                	  } else {
+                	    html += " ";
+                	  }
+                	}
+                html += "</p>";
                 html += "      <h5 id='pSno'> " + this.sname + "</h5>";
                 html += "      <p id='pRename'><i class='bi bi-signpost-fill'></i> " + this.smap + "</p>";
                 html += "      <span id='pRedate'><i class='bi bi-coin'></i> " + this.sprice + "원 / 일</span>";

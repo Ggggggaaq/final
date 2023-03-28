@@ -293,31 +293,33 @@
 	
 	
 		
-		<!-- 최신글순으로 정렬하여 원하는 글범위의 space list 정렬하여 검색 -->		
 		<select id="selectSpaceList" resultType="Space">
 			select * from (select rownum rn, spaceboard.* from (select * from Space where s_no IN (
 			<foreach collection="sNoList" item="sNo" separator=",">
-				#{sNo}
+				<if test="sNo instanceof Integer">
+					#{sNo}
+				</if>
 			</foreach>
-			)  <!-- 정렬 필터 -->
-				  <if test="sort != null and sort != ''">
-					  <choose>
-					    <when test="sort == 0">
-					      ORDER BY s_price ASC
-					    </when>
-					    <when test="sort == 1">
-					      ORDER BY s_price DESC
-					    </when>
-					    <when test="sort == 2">
-					      ORDER BY s_heart DESC
-					    </when>
-					    <otherwise>
-					      <!-- 정렬 방식을 지정하지 않거나 기본값으로 설정 -->
-					    </otherwise>
-					  </choose>
-				  </if>
+			) <!-- 정렬 필터 -->
+			<if test="sort != null and sort != ''">
+				<choose>
+					<when test="sort == 0">
+						ORDER BY s_price ASC
+					</when>
+					<when test="sort == 1">
+						ORDER BY s_price DESC
+					</when>
+					<when test="sort == 2">
+						ORDER BY s_heart DESC
+					</when>
+					<otherwise>
+						<!-- 정렬 방식을 지정하지 않거나 기본값으로 설정 -->
+					</otherwise>
+				</choose>
+			</if>
 			) spaceboard) where rn between #{startRow} and #{endRow}
 		</select>
+
 	
 		
 	<!-- Question 게시글 총개수 -->	

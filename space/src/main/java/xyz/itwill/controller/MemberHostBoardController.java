@@ -256,10 +256,11 @@ public class MemberHostBoardController {
 						if(totalQuestion != 0) {
 							//sNo를 받아와서 출력하기 위한 객체 생성.
 							List<Space> spaceList2=memberHostBoardDao.selectSpaceSno(params);
+							//double과 int값을 저장하기 위해 Number 사용.
 							List<Number> sNoList = new ArrayList<>();
 							
 							for (Space space : spaceList2) {
-								//소숫점을 Number에 추가하기 위해 long사용. double은 Number의 하위속성이 아니다.
+								//소숫점을 추가하기 위해 double사용.
 								double averagestar = memberHostBoardDao.selectStarAverage(space.getSNo());
 						        sNoList.add(space.getSNo());
 						        sNoList.add(averagestar);
