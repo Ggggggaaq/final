@@ -256,13 +256,16 @@ public class MemberHostBoardController {
 						if(totalQuestion != 0) {
 							//sNo를 받아와서 출력하기 위한 객체 생성.
 							List<Space> spaceList2=memberHostBoardDao.selectSpaceSno(params);
-							List<Integer> sNoList = new ArrayList<>();
+							List<Number> sNoList = new ArrayList<>();
 							
 							for (Space space : spaceList2) {
-								int averagestar=memberHostBoardDao.selectStarAverage(space.getSNo());
+								//소숫점을 Number에 추가하기 위해 long사용. double은 Number의 하위속성이 아니다.
+								double averagestar = memberHostBoardDao.selectStarAverage(space.getSNo());
 						        sNoList.add(space.getSNo());
 						        sNoList.add(averagestar);
 						    }
+							
+							
 							//SQL 매퍼에 적용하기 위해 pageMap객체 생성 후 입력값 전달.
 							Map<String, Object> pageMap=new HashMap<String, Object>();
 							pageMap.put("startRow", pager.getStartRow());
@@ -276,6 +279,7 @@ public class MemberHostBoardController {
 							Map<String, Object> resultMap=new HashMap<String, Object>();
 							resultMap.put("spaceList", spaceList);
 							resultMap.put("pager", pager); 
+							resultMap.put("sNoList", sNoList); 
 							return resultMap;
 											}
 						
@@ -288,6 +292,7 @@ public class MemberHostBoardController {
 					    }
 						
 					}
+					
 					
 					///////////////////////////////////////////////////////////////////////////////////////////////////
 					

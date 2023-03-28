@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
@@ -47,7 +48,6 @@ a {
 <form class="mb-5">
 
 <div class="w-75 d-flex justify-content-center" style="margin: 0 auto;"> 
-
 
 <!-- 지역 체크 박스 -->
  <div class="w-25">
@@ -310,6 +310,8 @@ function noticeListDisplay(pageNum) {
             var html = "<div class='row'>";
             var count = 0;
             $(result.spaceList).each(function() {
+            	 var sNoList = result.sNoList;
+           		 var spaceList= result.spaceList;
                 if (count == 3) {
                     html += "</div><div class='row'>";
                     count = 0;
@@ -317,9 +319,12 @@ function noticeListDisplay(pageNum) {
                 html += "<div class='col-md-4'>";
                 html += " <a href='${pageContext.request.contextPath}/spaces?sNo=" + this.sno +" ' class='card-link'>";
                 html += "  <div class='card mb-4'>";
-                html+=	"  <div class='card-header'><img class='img-fluid w-75' src='${pageContext.request.contextPath}/images/img1/"+this.simg+"'></div>";
+                html +=	"  <div class='card-header'><img class='img-fluid w-75' src='${pageContext.request.contextPath}/images/img1/"+this.simg+"'></div>";
                 html += "    <div class='card-body'>";
+ 
+             
 
+                html += "      <h5 id='pSno'> 평점 : " + sNoList[sNoList.indexOf(this.sno)+1]  + "</h5>";
                 html += "      <h5 id='pSno'> " + this.sname + "</h5>";
                 html += "      <p id='pRename'><i class='bi bi-signpost-fill'></i> " + this.smap + "</p>";
                 html += "      <span id='pRedate'><i class='bi bi-coin'></i> " + this.sprice + "원 / 일</span>";
@@ -361,7 +366,6 @@ function pageNumDisplay(pager) {
 	}
 	$("#pageNumDiv").html(html);
 }
-
 
 
 </script>

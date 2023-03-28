@@ -61,5 +61,5 @@ public interface MemberHostBoardMapper {
 	List<Space> selectSpaceSno(Map<String, Object> params);
 	int selectSpaceCount(Map<String, Object> params);
 	List<Space> selectSpaceList(Map<String, Object> map);
-	int selectStarAverage(int sNo);
+	double selectStarAverage(int sNo);
 }

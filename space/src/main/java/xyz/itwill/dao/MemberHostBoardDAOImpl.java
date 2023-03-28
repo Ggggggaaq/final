@@ -216,7 +216,7 @@ public class MemberHostBoardDAOImpl implements MemberHostBoardDAO {
 	}
 
 	@Override
-	public int selectStarAverage(int sNo) {
+	public double selectStarAverage(int sNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.getMapper(MemberHostBoardMapper.class).selectStarAverage(sNo);
 	}
