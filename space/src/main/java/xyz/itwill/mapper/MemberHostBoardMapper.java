@@ -50,7 +50,7 @@ public interface MemberHostBoardMapper {
 	List<SelectMember> selectHostReserveList(Map<String, Object> map);
 	
 	//Host Review
-	int selectHostReviewCount();
+	int selectHostReviewCount(String hId);
 	List<SelectMember> selectHostReviewList(Map<String, Object> map);
 	
 	//Host Question
