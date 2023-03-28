@@ -132,7 +132,7 @@
 	        	  html += "<th scope='col'>내용</th>";
 	        	  html += "<th scope='col'>답변 상태</th>";
 	        	  html += "<th scope='col'>회원 ID</th>";
-	        	  html += "<th scope='col'>상세</th>";
+	        	  html += "<th scope='col'>링크</th>";
 	        	  html += "</tr>";
 	        	  html += "</thead>";
 	        	  html += "<tbody>";
@@ -142,10 +142,15 @@
 	        	    html += "<td scope='row'>" + this.reviewList[0].rno + "</td>";
 	        	    html += "<td scope='row'>" + this.reviewList[0].rtitle + "</td>";
 	        	    html += "<td scope='row'>" + this.reviewList[0].rcontent + "</td>";
-	        	    html += "<td scope='row'>" + this.reviewList[0].rstatus + "</td>";
+	        	    if (this.reviewList[0].rstatus === 1) {
+	                	  html += "      <td scope='row' style='color:blue; font-weight: bold;'> 미답변</td>";
+	                	} else if (this.reviewList[0].rstatus === 0) {
+	                	  html += "      <td scope='row' style='color:blue; font-weight: bold;'> 답변</td>";
+	                	} 
+	        	    
 	        	    html += "<td scope='row'>" + this.reviewList[0].rmid + "</td>";
 
-	        	    html += "<td scope='row'><a href='reservation_detail?reservationNo=" + this.reservationNo + "'>상세보기</a></td>";
+	        	    html += "<td scope='row'><a href=''>답글작성</a></td>";
 	        	    html += "</tr>";
 	        	  });
 	        	  html += "</tbody>";

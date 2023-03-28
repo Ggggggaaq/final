@@ -46,8 +46,11 @@
 	margin: 10px;
 	padding: 10px;
 	text-align: center;
+    transition: transform 0.3s ease-in-out; 
 }
-
+ #header.hidden {
+    transform: translateY(-100%);
+  }
 #content{
 
 	min-height: 200px;
@@ -104,5 +107,20 @@
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
 </body>
-     
+<script >
+	//header를 숨기기위해 사용.
+  var header = document.getElementById('header');
+  var lastScrollTop = 0;
+  window.addEventListener('scroll', function() {
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    if (scrollTop > lastScrollTop && scrollTop > 100) {
+      // 원래 위치에서 100px만큼 스크롤로 내리면 숨겨짐.
+      header.classList.add('hidden');
+    } else {
+      // 아닐 경우 원래 위치로 복구.
+      header.classList.remove('hidden');
+    }
+    lastScrollTop = scrollTop;
+  });
+</script>     
 </html>

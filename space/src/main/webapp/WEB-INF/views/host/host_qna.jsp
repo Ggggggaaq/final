@@ -93,7 +93,17 @@
 	
 		<div id="viewtable" class="w-100" style="margin: 0 auto;"></div>
 		<div id="pageNumDiv2"></div>
-		
+		<form id="qnaForm" style="display: none;">
+  <div class='qTitle' >
+    <label for='title'>제목</label>
+    <input type='text' class='form-control' id='title' placeholder='제목을 입력하세요'>
+  </div>
+  <div class='qContent'>
+    <label for='content'>내용</label>
+    <textarea class='form-control' id='content' rows='5' placeholder='내용을 입력하세요'></textarea>
+  </div>
+  <button type='submit' class='btn btn-primary'>답글 작성</button>
+</form>
 
 	</body>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -131,7 +141,7 @@
 	        	  html += "<th scope='col'>내용</th>";
 	        	  html += "<th scope='col'>답변 상태</th>";
 	        	  html += "<th scope='col'>회원 ID</th>";
-	        	  html += "<th scope='col'>상세</th>";
+	        	  html += "<th scope='col'>링크</th>";
 	        	  html += "</tr>";
 	        	  html += "</thead>";
 	        	  html += "<tbody>";
@@ -141,20 +151,31 @@
 	        	    html += "<td scope='row'>" + this.questionList[0].qno + "</td>";
 	        	    html += "<td scope='row'>" + this.questionList[0].qtitle + "</td>";
 	        	    html += "<td scope='row'>" + this.questionList[0].qcontent + "</td>";
-	        	    html += "<td scope='row'>" + this.questionList[0].qstatus + "</td>";
+	        	    if (this.questionList[0].qstatus === 1) {
+	                	  html += "      <td scope='row' style='color:blue; font-weight: bold;'> 미답변</td>";
+	                	} else if (this.questionList[0].qstatus === 0) {
+	                	  html += "      <td scope='row' style='color:blue; font-weight: bold;'> 답변</td>";
+	                	} 
+	        	    
 	        	    html += "<td scope='row'>" + this.questionList[0].qmid + "</td>";
-
-	        	    html += "<td scope='row'><a href='reservation_detail?reservationNo=" + this.reservationNo + "'>상세보기</a></td>";
-	        	    html += "</tr>";
+	        	    html += " <td scope='row'><button id='addQnaBtn'>답글작성</button></td>";
+	        	    html += "</tr>";	        	  		
 	        	  });
 	        	  html += "</tbody>";
+				
 	        	  html += "</table>";
 	        	  html += "</div>";
 	        	  html += "</div>";
 	        	  html += "</div>";
 	        	  html += "</div>";
+	        	  html += "<script>";
+	        	  html += "document.getElementById('addQnaBtn').addEventListener('click', function() {";
+	        	  html += "    document.getElementById('qnaForm').style.display = 'block';";
+	        	  html += "});";
+
 	        	  pageNumDisplay2(result.pager)
 	        	  $("#viewtable").html(html);
+	        	  
 	        	}
 
 	        				
@@ -163,6 +184,7 @@
 	        error: function(xhr, status, error) {
 	            console.log(error);
 	        }
+	        			
 	    });
 	}
 
@@ -186,9 +208,7 @@
 		}
 		$("#pageNumDiv2").html(html);
 	}
-		
-	
-	
+
 	</script>	
 	
 </html>
