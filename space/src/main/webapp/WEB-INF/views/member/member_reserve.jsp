@@ -134,13 +134,13 @@
 	                html += "<div class='col-md-4'>";
 	                html += "  <div class='card mb-4'>";
 	                html += "    <div class='card-header'>";
-	                html += "      예약번호: " + this.reserveList[0].pno;
-	                html += "    </div>";
+	                html += "      <p id='pRepeople' style='color:blue; font-weight: bold;'> 예약번호 : "+ this.reserveList[0].pno+"</p>"; 
+	                html += "      <h5 id='pSno'>공간번호: " + this.reserveList[0].psno + "</h5>";
+		            html += "    </div>";
 
 	                html += "    <div class='card-body'>";
 	                
 
-	                html += "      <h5 id='pSno'>공간번호: " + this.reserveList[0].psno + "</h5>";
 	                html += "      <h5 id='pRename'>예약자명: " + this.reserveList[0].prename + "</h5>";
 	                html += "      <h5 id='pRedate'><i class='bi bi-calendar2-heart'></i>: " + this.reserveList[0].predate + "</h5>";
 	                html += "      <h5 id='pRepeople'><i class='bi bi-person-circle'></i> : " + this.reserveList[0].prepeople + "명 </h5>";
