@@ -119,7 +119,6 @@
 	        	  html += "<th scope='col'>예약일</th>";
 	        	  html += "<th scope='col'>인원</th>";
 	        	  html += "<th scope='col'>결제 방법</th>";
-	        	  html += "<th scope='col'>상세</th>";
 	        	  html += "</tr>";
 	        	  html += "</thead>";
 	        	  html += "<tbody>";
@@ -130,9 +129,13 @@
 	        	    html += "<td scope='row'>" + this.reserveList[0].prename + "</td>";
 	        	    html += "<td scope='row'>" + this.reserveList[0].pmid+ "</td>";
 	        	    html += "<td scope='row'>" + this.reserveList[0].predate + "</td>";
-	        	    html += "<td scope='row'>" + this.reserveList[0].prepeople  + "</td>";
-	        	    html += "<td scope='row'>" + this.reserveList[0].pway + "</td>";
-	        	    html += "<td scope='row'><a href='reservation_detail?reservationNo=" + this.reservationNo + "'>상세보기</a></td>";
+	        	    html += "<td scope='row'>" + this.reserveList[0].prepeople  + "명</td>";
+	           
+	        	    if (this.reserveList[0].pway === 1) {
+	                	  html += "<td scope='row'> 신용카드 </td>";
+	                	} else if (this.reserveList[0].pway === 2) {
+	                	  html +=  "<td scope='row'> 계좌이체 </td>";
+	                	} 
 	        	    html += "</tr>";
 	        	  });
 	        	  html += "</tbody>";
