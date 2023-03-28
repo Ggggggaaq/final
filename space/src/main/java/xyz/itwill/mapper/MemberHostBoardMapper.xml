@@ -81,7 +81,7 @@
 	
 	<!-- 최신글순으로 정렬하여 원하는 글범위의 Review list 검색 -->		
 	<select id="selectReviewList" resultMap="SelectMemberResultMap">
-		select * from (select rownum rn, reviewboard.* from (select * from Review order by r_no desc) reviewboard) where rn between #{startRow} and #{endRow}
+		select * from (select rownum rn, reviewboard.* from (select * from Review where r_mid=#{rMid} order by r_no desc) reviewboard) where rn between #{startRow} and #{endRow}
 	</select>
 	
 	
@@ -103,7 +103,7 @@
 	
 	<!-- 최신글순으로 정렬하여 원하는 글범위의 Reserve list 검색 -->		
 	<select id="SelectReserveList" resultMap="SelectMemberResultMap">
-		select * from (select rownum rn, payboard.* from (select * from Pay order by p_no desc) payboard) where rn between #{startRow} and #{endRow}
+		select * from (select rownum rn, payboard.* from (select * from Pay where p_mid=#{pMid} order by p_no desc) payboard) where rn between #{startRow} and #{endRow}
 	</select>
 	
 	
@@ -160,7 +160,7 @@
 	
 	<!-- 최신글순으로 정렬하여 원하는 글범위의 Question list 검색 -->		
 	<select id="SelectQuestionList" resultMap="SelectMemberResultMap">
-		select * from (select rownum rn, questionboard.* from (select * from Question order by q_no desc) questionboard) where rn between #{startRow} and #{endRow}
+		select * from (select rownum rn, questionboard.* from (select * from Question where q_mid=#{qMid} order by q_no desc) questionboard) where rn between #{startRow} and #{endRow}
 	</select>
 	
 	

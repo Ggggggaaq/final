@@ -114,12 +114,14 @@ public class MemberHostBoardController {
 						Map<String, Object> pageMap=new HashMap<String, Object>();
 						pageMap.put("startRow", pager.getStartRow());
 						pageMap.put("endRow", pager.getEndRow());
+						pageMap.put("rMid", loginMember.getMId());
 						
 						List<SelectMember> reviewList=memberHostBoardDao.selectReviewList(pageMap);
 						
 						Map<String, Object> resultMap=new HashMap<String, Object>();
 						resultMap.put("reviewList", reviewList);
 						resultMap.put("pager", pager);
+
 						return resultMap;
 					}	
 					
@@ -190,12 +192,13 @@ public class MemberHostBoardController {
 				Map<String, Object> pageMap=new HashMap<String, Object>();
 				pageMap.put("startRow", pager.getStartRow());
 				pageMap.put("endRow", pager.getEndRow());
-				
+				pageMap.put("qMid", loginMember.getMId());
 				List<SelectMember> questionList=memberHostBoardDao.SelectQuestionList(pageMap);
 				
 				Map<String, Object> resultMap=new HashMap<String, Object>();
 				resultMap.put("questionList", questionList);
 				resultMap.put("pager", pager);
+				
 				return resultMap;
 			}	
 			
@@ -221,12 +224,13 @@ public class MemberHostBoardController {
 						Map<String, Object> pageMap=new HashMap<String, Object>();
 						pageMap.put("startRow", pager.getStartRow());
 						pageMap.put("endRow", pager.getEndRow());
-						
+						pageMap.put("pMid", loginMember.getMId());
 						List<SelectMember> reserveList=memberHostBoardDao.SelectReserveList(pageMap);
 						
 						Map<String, Object> resultMap=new HashMap<String, Object>();
 						resultMap.put("reserveList", reserveList);
 						resultMap.put("pager", pager);
+					
 						return resultMap;
 					}	
 					
