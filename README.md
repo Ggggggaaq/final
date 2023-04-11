@@ -13,7 +13,7 @@
 
 ### IDE : 이클립스
 ### 프레임워크
-- Spring3 : spring legacy project로 개발 구축
+- Spring5 : spring legacy project로 개발 구축
 
 - 웹어플리케이션 프레임워크
   - SpringMVC 패턴 이용 
@@ -31,7 +31,7 @@
 - 아파치 톰캣
 
 ### VIEW
-- JSP MODEL2 (EL, JSTL),HTML,CSS,bootstrap,JAVASCRIPT,jQuery
+- JSP(EL, JSTL),HTML,CSS,bootstrap,JAVASCRIPT,jQuery
 
 ### 협업 툴
 - 형상관리 : svn, github
@@ -41,4 +41,4 @@
 - maven
 
 ### 테스트도구
-- junit5
+- junit4
