@@ -13,7 +13,7 @@
 
 ### IDE : 이클립스
 ### 프레임워크
-- Spring5 : spring legacy project로 개발 구축
+- Spring : spring legacy project로 개발 구축
 
 - 웹어플리케이션 프레임워크
   - SpringMVC 패턴 이용 
@@ -43,5 +43,22 @@
 ### 테스트도구
 - junit4
 
-### 작성한 class
-https://github.com/Ggggggaaq/final/blob/master/space/src/main/java/xyz/itwill/controller/MemberHostBoardController.java
+### 개인 Controller 및 Jsp링크
+
+통합 컨트롤러 링크
+
+- https://github.com/Ggggggaaq/final/blob/master/space/src/main/java/xyz/itwill/controller/MemberHostBoardController.java
+
+Jsp 링크
+
+메인 페이지
+-https://github.com/Ggggggaaq/final/tree/master/space/src/main/webapp/WEB-INF/views/main
+
+멤버 Review, Q&A, Reserve 페이지
+-https://github.com/Ggggggaaq/final/tree/master/space/src/main/webapp/WEB-INF/views/member
+
+필터 검색 및 헤더 페이지
+-https://github.com/Ggggggaaq/final/tree/master/space/src/main/webapp/WEB-INF/views/layout
+
+호스트 Review, Q&A, Reserve 페이지
+-https://github.com/Ggggggaaq/final/tree/master/space/src/main/webapp/WEB-INF/views/host
