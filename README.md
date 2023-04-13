@@ -52,13 +52,13 @@
 Jsp 링크
 
 메인 페이지
-- https://github.com/Ggggggaaq/final/tree/master/space/src/main/webapp/WEB-INF/views/main
+-  https://github.com/Ggggggaaq/final/tree/master/space/src/main/webapp/WEB-INF/views/main
 
 멤버 Review, Q&A, Reserve 페이지
-- https://github.com/Ggggggaaq/final/tree/master/space/src/main/webapp/WEB-INF/views/member
+-  https://github.com/Ggggggaaq/final/tree/master/space/src/main/webapp/WEB-INF/views/member
 
 필터 검색 및 헤더 페이지
-- https://github.com/Ggggggaaq/final/tree/master/space/src/main/webapp/WEB-INF/views/layout
+-  https://github.com/Ggggggaaq/final/tree/master/space/src/main/webapp/WEB-INF/views/layout
 
 호스트 Review, Q&A, Reserve 페이지
-- https://github.com/Ggggggaaq/final/tree/master/space/src/main/webapp/WEB-INF/views/host
+-  https://github.com/Ggggggaaq/final/tree/master/space/src/main/webapp/WEB-INF/views/host
