@@ -30,7 +30,7 @@
 ### 웹서버 + 웹컨테이너(WAS)
 - 아파치 톰캣
 
-### VIEW
+### View
 - JSP(EL, JSTL),HTML,CSS,bootstrap,JAVASCRIPT,jQuery
 
 ### 협업 툴
@@ -43,13 +43,13 @@
 ### 테스트도구
 - junit4
 
-### 개인 Controller 및 Jsp링크
+### 개인 Controller 및 View 링크
 
 통합 컨트롤러 링크
 
 - https://github.com/Ggggggaaq/final/blob/master/space/src/main/java/xyz/itwill/controller/MemberHostBoardController.java
 
-Jsp 링크
+View 링크
 
 메인 페이지
 -  https://github.com/Ggggggaaq/final/tree/master/space/src/main/webapp/WEB-INF/views/main
