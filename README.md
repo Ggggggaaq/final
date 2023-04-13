@@ -42,3 +42,6 @@
 
 ### 테스트도구
 - junit4
+
+### 작성한 class
+https://github.com/Ggggggaaq/final/blob/master/space/src/main/java/xyz/itwill/controller/MemberHostBoardController.java
