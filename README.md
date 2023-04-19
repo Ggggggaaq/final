@@ -45,7 +45,7 @@
 
 ### 개인 Controller 및 View 링크
 
-통합 컨트롤러 링크
+Controller 링크
 
 - https://github.com/Ggggggaaq/final/blob/master/space/src/main/java/xyz/itwill/controller/MemberHostBoardController.java
 
