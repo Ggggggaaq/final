@@ -111,88 +111,61 @@
 	<script type="text/javascript">
 	var page=1;
 	noticeListDisplay(page);
-	
+
+	$(document).on("click", ".add-qna-btn", function() {
+		$("#qnaForm").show();
+		$("#qnaForm").attr("data-qno", $(this).data("qno"));
+	});
+
+	$("#qnaForm").on("submit", function(event) {
+		event.preventDefault();
+		alert("답글 작성 UI 동작만 우선 수정되었습니다. 저장 API는 아직 구현되어 있지 않습니다.");
+	});
+
 	function noticeListDisplay(pageNum) {
-	    page = pageNum;
-	    $.ajax({
-	        type: "get",
-	        url: "${pageContext.request.contextPath}/host_questionList?pageNum=" + pageNum,
-	        dataType: "json",
-	        success: function(result) {
-	        	  if (result.questionList.length == 0) {
-	        	    var html = "<table>";
-	        	    html += "<tr>";
-	        	    html += "<th colspan='6'>작성된 게시글이 없습니다.</th>";
-	        	    html += "</tr>";
-	        	    html += "</table>";
-	        	    $("#viewtable").html(html);
-	        	    return;
-	        	  }
-	        	  var html = "<div class='row'>";
-	        	  html += "<div class='col-lg-8 col-md-6 col-12 mx-auto'>";
-	        	  html += "<div class='card mb-5'>";
-	        	  html += "<div class='card-body'>";
-	        	  html += "<table class='table'>";
-	        	  html += "<thead>";
-	        	  html += "<tr>";
-	        	  html += "<th scope='col'>공간 번호</th>";
-	        	  html += "<th scope='col'>Q&A 번호</th>";
-	        	  html += "<th scope='col'>제목</th>";
-	        	  html += "<th scope='col'>내용</th>";
-	        	  html += "<th scope='col'>답변 상태</th>";
-	        	  html += "<th scope='col'>회원 ID</th>";
-	        	  html += "<th scope='col'>링크</th>";
-	        	  html += "</tr>";
-	        	  html += "</thead>";
-	        	  html += "<tbody>";
-	        	  $(result.questionList).each(function() {
-	        	    html += "<tr>";
-	         	    html += "<td scope='row'>" + this.questionList[0].qsno + "</td>";
-	        	    html += "<td scope='row'>" + this.questionList[0].qno + "</td>";
-	        	    html += "<td scope='row'>" + this.questionList[0].qtitle + "</td>";
-	        	    html += "<td scope='row'>" + this.questionList[0].qcontent + "</td>";
-	        	    if (this.questionList[0].qstatus === 1) {
-	                	  html += "      <td scope='row' style='color:blue; font-weight: bold;'> 미답변</td>";
-	                	} else if (this.questionList[0].qstatus === 0) {
-	                	  html += "      <td scope='row' style='color:blue; font-weight: bold;'> 답변</td>";
-	                	} 
-	        	    
-	        	    html += "<td scope='row'>" + this.questionList[0].qmid + "</td>";
-	        	    html += " <td scope='row'><button id='addQnaBtn'>답글작성</button></td>";
-	        	    html += "</tr>";	        	  		
-	        	  });
-	        	  html += "</tbody>";
-				
-	        	  html += "</table>";
-	        	  html += "</div>";
-	        	  html += "</div>";
-	        	  html += "</div>";
-	        	  html += "</div>";
-	        	  html += "<script>";
-	        	  html += "document.getElementById('addQnaBtn').addEventListener('click', function() {";
-	        	  html += "    document.getElementById('qnaForm').style.display = 'block';";
-	        	  html += "});";
+		page = pageNum;
+		$.ajax({
+			type: "get",
+			url: "${pageContext.request.contextPath}/host_questionList?pageNum=" + pageNum,
+			dataType: "json",
+			success: function(result) {
+				if (result.questionList.length === 0) {
+					$("#viewtable").html("<table><tr><th colspan='7'>작성된 게시글이 없습니다.</th></tr></table>");
+					$("#pageNumDiv2").empty();
+					return;
+				}
 
-	        	  pageNumDisplay2(result.pager)
-	        	  $("#viewtable").html(html);
-	        	  
-	        	}
+				var html = "<div class='row'><div class='col-lg-8 col-md-6 col-12 mx-auto'><div class='card mb-5'><div class='card-body'>";
+				html += "<table class='table'><thead><tr>";
+				html += "<th scope='col'>공간 번호</th><th scope='col'>Q&A 번호</th><th scope='col'>제목</th><th scope='col'>내용</th>";
+				html += "<th scope='col'>답변 상태</th><th scope='col'>회원 ID</th><th scope='col'>링크</th></tr></thead><tbody>";
 
-	        				
-	        				
-	        			,
-	        error: function(xhr, status, error) {
-	            console.log(error);
-	        }
-	        			
-	    });
+				$(result.questionList).each(function() {
+					var question = this.questionList[0];
+					var answerStatus = question.qstatus === 1 ? "미답변" : "답변";
+					html += "<tr>";
+					html += "<td scope='row'>" + question.qsno + "</td>";
+					html += "<td scope='row'>" + question.qno + "</td>";
+					html += "<td scope='row'>" + question.qtitle + "</td>";
+					html += "<td scope='row'>" + question.qcontent + "</td>";
+					html += "<td scope='row' style='color:blue; font-weight: bold;'>" + answerStatus + "</td>";
+					html += "<td scope='row'>" + question.qmid + "</td>";
+					html += "<td scope='row'><button type='button' class='add-qna-btn' data-qno='" + question.qno + "'>답글작성</button></td>";
+					html += "</tr>";
+				});
+
+				html += "</tbody></table></div></div></div></div>";
+				$("#viewtable").html(html);
+				pageNumDisplay2(result.pager);
+			},
+			error: function(xhr, status, error) {
+				console.log(error);
+			}
+		});
 	}
 
-	
-	
 	function pageNumDisplay2(pager) {
 		var html="";
-		
 		if(pager.startPage > pager.blockSize) {
 			html+="<a href='javascript:noticeListDisplay("+pager.prevPage+")'>[이전]</a>";
 		}
