@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Space Dev | 관리자 대시보드</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<header class="topbar">
+    <div class="container topbar-inner">
+        <a class="brand" href="/admin/dashboard">Space Dev Admin</a>
+        <nav>
+            <span class="role-badge" th:text="${loginRole}"></span>
+            <a href="/admin/dashboard" class="active">대시보드</a>
+            <a href="/admin/venues">공간 관리</a>
+            <a href="/admin/reservations">예약 관리</a>
+            <form action="/logout" method="post"><button class="btn-light" type="submit">로그아웃</button></form>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    <h1 class="page-title">관리자 콘솔</h1>
+    <p class="subtle"><span th:text="${loginUser}"></span>님, 전체 운영 현황을 관리합니다.</p>
+
+    <p class="flash success" th:if="${message}" th:text="${message}"></p>
+
+    <section class="grid grid-3">
+        <article class="card stat"><p>등록 공간 수</p><strong th:text="${venueCount}"></strong></article>
+        <article class="card stat"><p>최근 예약 건수</p><strong th:text="${reservationCount}"></strong></article>
+        <article class="card stat"><p>평균 시간당 요금</p><strong th:text="|${avgHourlyPrice}원|"></strong></article>
+    </section>
+
+    <section class="card" style="margin-top: 16px;">
+        <h2>최근 예약 미리보기</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>ID</th><th>공간 ID</th><th>예약자</th><th>시작</th><th>종료</th></tr></thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(reservations)}"><td colspan="5">예약 내역이 없습니다.</td></tr>
+                <tr th:each="r : ${reservations}">
+                    <td th:text="${r.id}"></td><td th:text="${r.venueId}"></td><td th:text="${r.renterName}"></td>
+                    <td th:text="${r.startAt}"></td><td th:text="${r.endAt}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Space Dev | 관리자 공간 관리</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<header class="topbar">
+    <div class="container topbar-inner">
+        <a class="brand" href="/admin/dashboard">Space Dev Admin</a>
+        <nav>
+            <span class="role-badge" th:text="${loginRole}"></span>
+            <a href="/admin/dashboard">대시보드</a>
+            <a href="/admin/venues" class="active">공간 관리</a>
+            <a href="/admin/reservations">예약 관리</a>
+            <form action="/logout" method="post"><button class="btn-light" type="submit">로그아웃</button></form>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    <h1 class="page-title">공간 관리</h1>
+    <p class="subtle">대표 공간: <strong th:text="${topVenue}"></strong></p>
+    <p class="flash success" th:if="${message}" th:text="${message}"></p>
+
+    <section class="card" style="margin-bottom: 16px;">
+        <h2>새 공간 등록 (관리자 전용)</h2>
+        <form method="post" action="/admin/venues" class="grid grid-3">
+            <input name="name" placeholder="공간명" required>
+            <input name="location" placeholder="위치" required>
+            <input name="capacity" type="number" min="1" placeholder="수용인원" required>
+            <input name="hourlyPrice" type="number" min="0" placeholder="시간당 요금" required>
+            <button type="submit">공간 등록</button>
+        </form>
+    </section>
+
+    <section class="card">
+        <h2>공간 목록</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>ID</th><th>이름</th><th>위치</th><th>수용인원</th><th>시간당 요금</th></tr></thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(venues)}"><td colspan="5">등록된 공간이 없습니다.</td></tr>
+                <tr th:each="v : ${venues}">
+                    <td th:text="${v.id}"></td><td th:text="${v.name}"></td><td th:text="${v.location}"></td>
+                    <td th:text="${v.capacity}"></td><td th:text="|${v.hourlyPrice}원|"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+</body>
+</html>

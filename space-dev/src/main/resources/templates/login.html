@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Space Dev | 로그인</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div class="login-shell">
+    <section class="login-card">
+        <h1 class="page-title">Space Dev Portal</h1>
+        <p class="subtle">권한에 따라 관리자/사용자 화면으로 분리됩니다.</p>
+
+        <p class="flash success" th:if="${message}" th:text="${message}"></p>
+        <p class="flash error" th:if="${error}" th:text="${error}"></p>
+
+        <form method="post" action="/login">
+            <label>아이디
+                <input name="username" placeholder="admin 또는 user1" required>
+            </label>
+            <label>비밀번호
+                <input type="password" name="password" placeholder="••••••••" required>
+            </label>
+            <button type="submit">로그인</button>
+        </form>
+
+        <hr style="border:0;border-top:1px solid #e5e7eb;margin:16px 0;">
+        <p class="kv"><strong>관리자 계정</strong>: admin / space1234, manager / welcome123</p>
+        <p class="kv"><strong>사용자 계정</strong>: user1 / user1234, guest / guest1234</p>
+    </section>
+</div>
+</body>
+</html>
