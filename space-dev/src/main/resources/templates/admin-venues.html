@@ -28,7 +28,13 @@
         <h2>새 공간 등록 (관리자 전용)</h2>
         <form method="post" action="/admin/venues" class="grid grid-3">
             <input name="name" placeholder="공간명" required>
-            <input name="location" placeholder="위치" required>
+            <input name="location" placeholder="상세 위치" required>
+            <select name="region" required>
+                <option value="">지역 선택</option>
+                <option>서울</option><option>경기</option><option>인천</option><option>부산</option>
+                <option>대구</option><option>광주</option><option>대전</option><option>울산</option><option>기타</option>
+            </select>
+            <input name="imageUrl" type="url" placeholder="대표 이미지 URL" required>
             <input name="capacity" type="number" min="1" placeholder="수용인원" required>
             <input name="hourlyPrice" type="number" min="0" placeholder="시간당 요금" required>
             <button type="submit">공간 등록</button>
@@ -39,12 +45,17 @@
         <h2>공간 목록</h2>
         <div class="table-wrap">
             <table>
-                <thead><tr><th>ID</th><th>이름</th><th>위치</th><th>수용인원</th><th>시간당 요금</th></tr></thead>
+                <thead><tr><th>ID</th><th>이미지</th><th>이름</th><th>지역</th><th>위치</th><th>수용인원</th><th>시간당 요금</th></tr></thead>
                 <tbody>
-                <tr th:if="${#lists.isEmpty(venues)}"><td colspan="5">등록된 공간이 없습니다.</td></tr>
+                <tr th:if="${#lists.isEmpty(venues)}"><td colspan="7">등록된 공간이 없습니다.</td></tr>
                 <tr th:each="v : ${venues}">
-                    <td th:text="${v.id}"></td><td th:text="${v.name}"></td><td th:text="${v.location}"></td>
-                    <td th:text="${v.capacity}"></td><td th:text="|${v.hourlyPrice}원|"></td>
+                    <td th:text="${v.id}"></td>
+                    <td><img class="thumb" th:src="${v.imageUrl}" th:alt="${v.name}"></td>
+                    <td th:text="${v.name}"></td>
+                    <td th:text="${v.region}"></td>
+                    <td th:text="${v.location}"></td>
+                    <td th:text="${v.capacity}"></td>
+                    <td th:text="|${v.hourlyPrice}원|"></td>
                 </tr>
                 </tbody>
             </table>

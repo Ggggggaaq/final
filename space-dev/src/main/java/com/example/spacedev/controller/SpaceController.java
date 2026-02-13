@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -111,6 +112,8 @@ public class SpaceController {
     @PostMapping("/admin/venues")
     public String addVenue(@RequestParam String name,
                            @RequestParam String location,
+                           @RequestParam String region,
+                           @RequestParam String imageUrl,
                            @RequestParam int capacity,
                            @RequestParam int hourlyPrice,
                            HttpSession session,
@@ -120,7 +123,7 @@ public class SpaceController {
             return "redirect:/login";
         }
 
-        spaceService.createVenue(name, location, capacity, hourlyPrice);
+        spaceService.createVenue(name, location, region, imageUrl, capacity, hourlyPrice);
         redirectAttributes.addFlashAttribute("message", "공간이 등록되었습니다.");
         return "redirect:/admin/venues";
     }
@@ -157,12 +160,27 @@ public class SpaceController {
     }
 
     @GetMapping("/user/home")
-    public String userHome(Model model, HttpSession session) {
+    public String userHome(@RequestParam(required = false) String region, Model model, HttpSession session) {
         if (!isLoggedIn(session)) {
             return "redirect:/login";
         }
 
-        model.addAttribute("venues", spaceService.venues());
+        List<SpaceVenue> venues = spaceService.venues();
+        List<String> regions = venues.stream()
+                .map(SpaceVenue::region)
+                .distinct()
+                .sorted()
+                .toList();
+
+        if (region != null && !region.isBlank()) {
+            venues = venues.stream()
+                    .filter(v -> region.equals(v.region()))
+                    .toList();
+        }
+
+        model.addAttribute("venues", venues);
+        model.addAttribute("regions", regions);
+        model.addAttribute("selectedRegion", region == null ? "" : region);
         model.addAttribute("reservations", spaceService.recentReservations());
         model.addAttribute("loginUser", session.getAttribute(SESSION_USER_KEY));
         model.addAttribute("loginRole", session.getAttribute(SESSION_ROLE_KEY));

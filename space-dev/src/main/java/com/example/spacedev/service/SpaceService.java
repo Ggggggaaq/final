@@ -25,8 +25,8 @@ public class SpaceService {
         return spaceRepository.findAll();
     }
 
-    public void createVenue(String name, String location, int capacity, int hourlyPrice) {
-        spaceRepository.save(name, location, capacity, hourlyPrice);
+    public void createVenue(String name, String location, String region, String imageUrl, int capacity, int hourlyPrice) {
+        spaceRepository.save(name, location, region, imageUrl, capacity, hourlyPrice);
     }
 
     public void reserve(Long venueId, String renterName, LocalDateTime startAt, LocalDateTime endAt, String memo) {
