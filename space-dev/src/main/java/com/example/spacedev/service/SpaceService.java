@@ -7,7 +7,9 @@ import com.example.spacedev.repository.SpaceRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SpaceService {
@@ -33,5 +35,24 @@ public class SpaceService {
 
     public List<Reservation> recentReservations() {
         return reservationRepository.findRecent();
+    }
+
+    public int venueCount() {
+        return venues().size();
+    }
+
+    public int reservationCount() {
+        return recentReservations().size();
+    }
+
+    public int averageHourlyPrice() {
+        return (int) venues().stream()
+                .mapToInt(SpaceVenue::hourlyPrice)
+                .average()
+                .orElse(0);
+    }
+
+    public Optional<SpaceVenue> highestCapacityVenue() {
+        return venues().stream().max(Comparator.comparingInt(SpaceVenue::capacity));
     }
 }

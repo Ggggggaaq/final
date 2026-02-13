@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Space Dev | 예약 관리</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<header class="topbar">
+    <div class="container topbar-inner">
+        <a class="brand" href="/dashboard">Space Dev</a>
+        <nav>
+            <a href="/dashboard">대시보드</a>
+            <a href="/venues">공간 관리</a>
+            <a href="/reservations" class="active">예약 관리</a>
+            <form action="/logout" method="post"><button class="btn-light" type="submit">로그아웃</button></form>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    <h1 class="page-title">예약 관리</h1>
+    <p class="subtle">공간 예약 생성 및 최신 예약 내역을 확인할 수 있습니다.</p>
+
+    <p class="flash success" th:if="${message}" th:text="${message}"></p>
+
+    <section class="card" style="margin-bottom: 16px;">
+        <h2>예약 등록</h2>
+        <form method="post" action="/reservations" class="grid">
+            <select name="venueId" required>
+                <option value="">공간 선택</option>
+                <option th:each="v : ${venues}" th:value="${v.id}" th:text="|${v.name} (${v.location})|"></option>
+            </select>
+            <input name="renterName" placeholder="예약자명" required>
+            <div class="inline">
+                <input type="datetime-local" name="startAt" required>
+                <input type="datetime-local" name="endAt" required>
+            </div>
+            <textarea name="requestMemo" placeholder="요청사항"></textarea>
+            <button type="submit">예약 등록</button>
+        </form>
+    </section>
+
+    <section class="card">
+        <h2>최근 예약</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>ID</th><th>공간 ID</th><th>예약자</th><th>시작</th><th>종료</th><th>요청사항</th></tr></thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(reservations)}"><td colspan="6">예약 내역이 없습니다.</td></tr>
+                <tr th:each="r : ${reservations}">
+                    <td th:text="${r.id}"></td><td th:text="${r.venueId}"></td><td th:text="${r.renterName}"></td>
+                    <td th:text="${r.startAt}"></td><td th:text="${r.endAt}"></td><td th:text="${r.requestMemo}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+</body>
+</html>
