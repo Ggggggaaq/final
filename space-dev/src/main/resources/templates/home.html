@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Space Dev</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 32px; }
+        section { margin-bottom: 28px; padding: 16px; border: 1px solid #ddd; border-radius: 8px; }
+        input, select, button, textarea { margin: 4px 0; padding: 8px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        .msg { color: green; }
+    </style>
+</head>
+<body>
+<h1>공간 대여 DEV 샘플</h1>
+<p class="msg" th:if="${message}" th:text="${message}"></p>
+
+<section>
+    <h2>공간 등록</h2>
+    <form method="post" action="/venues">
+        <input name="name" placeholder="공간명" required>
+        <input name="location" placeholder="위치" required>
+        <input name="capacity" type="number" min="1" placeholder="수용인원" required>
+        <input name="hourlyPrice" type="number" min="0" placeholder="시간당 요금" required>
+        <button type="submit">등록</button>
+    </form>
+</section>
+
+<section>
+    <h2>예약 등록</h2>
+    <form method="post" action="/reservations">
+        <select name="venueId" required>
+            <option value="">공간 선택</option>
+            <option th:each="v : ${venues}" th:value="${v.id}" th:text="|${v.name} (${v.location})|"></option>
+        </select><br/>
+        <input name="renterName" placeholder="예약자명" required><br/>
+        <input type="datetime-local" name="startAt" required>
+        <input type="datetime-local" name="endAt" required><br/>
+        <textarea name="requestMemo" placeholder="요청사항"></textarea><br/>
+        <button type="submit">예약</button>
+    </form>
+</section>
+
+<section>
+    <h2>등록된 공간</h2>
+    <table>
+        <thead>
+        <tr><th>ID</th><th>공간명</th><th>위치</th><th>수용인원</th><th>시간당 요금</th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="v : ${venues}">
+            <td th:text="${v.id}"></td>
+            <td th:text="${v.name}"></td>
+            <td th:text="${v.location}"></td>
+            <td th:text="${v.capacity}"></td>
+            <td th:text="${v.hourlyPrice}"></td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h2>최근 예약</h2>
+    <table>
+        <thead>
+        <tr><th>ID</th><th>공간 ID</th><th>예약자</th><th>시작</th><th>종료</th><th>요청사항</th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="r : ${reservations}">
+            <td th:text="${r.id}"></td>
+            <td th:text="${r.venueId}"></td>
+            <td th:text="${r.renterName}"></td>
+            <td th:text="${r.startAt}"></td>
+            <td th:text="${r.endAt}"></td>
+            <td th:text="${r.requestMemo}"></td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+</body>
+</html>
